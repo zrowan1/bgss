@@ -1,3 +1,8 @@
+<template>
+    <div id="widgetlist"></div>
+    <button @click="increment">+</button>
+</template>
+
 <script>
     export default {
         data() {
@@ -27,8 +32,3 @@
         }
     }
 </script>
-
-<template>
-    <div id="widgetlist"></div>
-    <button @click="increment">count is: {{ count }}</button>
-</template>

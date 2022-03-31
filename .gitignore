@@ -1,2 +1,6 @@
 node_modules
 public
+/.vs/ProjectSettings.json
+/.vs/slnx.sqlite
+/.vs/bgss/v17/.suo
+/.vs/bgss/config/applicationhost.config

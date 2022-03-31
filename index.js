@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const host = http://localhost
+const host = http//localhost
 const port = 3000
 
 app.use(express.static('public'));

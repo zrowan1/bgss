@@ -1,2 +1,6 @@
 node_modules
 public
+/.vs/slnx.sqlite
+/.vs/bgss/v16/.suo
+/.vs/bgss/config/applicationhost.config
+/.vs/VSWorkspaceState.json

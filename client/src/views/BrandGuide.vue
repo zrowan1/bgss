@@ -4,42 +4,39 @@
     import { ref } from 'vue'
     import router from '@/router'
 
-    const widgetCount = ref(2)
     const widgetBgColor = ref('blue')
+    const widgetText = ref(["1", "2", "3"]);
+    let naam = 4
 
+    function goToCms() {
+        router.push({ name: 'Cms' })
+    }
     function addWidget() {
-        widgetCount.value++
+        widgetText.value.push(naam.toString())
+        naam++
     }
 
-    function removeWidget() {
-        widgetCount.value--
+    function removeWidget(plek) {
+        widgetText.value.splice(plek, 1)
     }
 
     function checkClick(i) {
         console.log(i)
     }
-
-    function goToCms() {
-        router.push({ name: 'Cms'})
-    }
 </script>
 
-<script>
-
-</script>
-<template id="app">
-
+<template>
     <div>
         <button @click="goToCms()"> Ga Terug</button>
     </div>
-
-    <widget
-        v-for="(i, index) in widgetCount"
-        :key="index"
-        @h1-click="(n) => checkClick(n)"
-        @h6-click="(n) => checkClick(n)"
-        :bgColor="widgetBgColor"
-        text="Super coole widget bru">
+    <widget v-for="(i, index) in widgetText"
+            :key="index"
+            @h1-click="(n) => checkClick(n)"
+            @h6-click="(n) => checkClick(n)"
+            @remove-click="(n) => removeWidget(n)"
+            :bgColor="widgetBgColor"
+            :text="widgetText[index]"
+            :index="index">
         {{ i }} - {{ index }}
     </widget>
     <select v-model="widgetBgColor">
@@ -47,6 +44,4 @@
         <option value="blue">Blue</option>
     </select>
     <button @click="addWidget()">Add Widget</button>
-    <button @click="removeWidget">Remove Widget</button>
-
 </template>

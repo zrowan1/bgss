@@ -3,8 +3,9 @@
     "",
     "\\client",
     "\\client\\src",
+    "\\client\\src\\assets",
     "\\client\\src\\components"
   ],
-  "SelectedNode": "\\client\\src\\App.vue",
+  "SelectedNode": "\\client\\package.json",
   "PreviewInSolutionExplorer": false
 }

@@ -1,5 +1,5 @@
 <template>
-    <div :style="{'background-color': bgColor}">
+    <div class="divTest" :style="{'background-color': bgColor}">
         <h1 @click="$emit('h1-click', text)">
             <slot />
         </h1>
@@ -14,10 +14,11 @@
 </script>
 
 <style>
-div {
-    background-color: black;
+.divTest {
     color: white;
     margin: 4px;
-    width: 100.69px
+    width: 100.69px;
+    padding-left: 10px;
+    padding-bottom: 1px;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <div class="divTest" :style="{'background-color': bgColor}">
+    <div class="divWidget" :style="{'background-color': bgColor}">
         <h1 @click="$emit('h1-click', text)">
             <slot />
         </h1>
@@ -14,7 +14,7 @@
 </script>
 
 <style>
-.divTest {
+.divWidget {
     color: white;
     margin: 4px;
     width: 100.69px;

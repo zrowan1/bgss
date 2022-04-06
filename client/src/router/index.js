@@ -13,9 +13,7 @@ const routes = [
     {
         path: "/BG",
         name: "BrandGuide",
-        component: BrandGuide,
-            
-    
+        component: BrandGuide,       
     },
     {
         path: '/:catchAll(.*)*',

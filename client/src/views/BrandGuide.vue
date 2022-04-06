@@ -29,17 +29,17 @@
 </script>
 <template id="app">
 
-<div>
-    <button @click="goToCms()"> Ga Terug</button>
-</div>
+    <div>
+        <button @click="goToCms()"> Ga Terug</button>
+    </div>
 
     <widget
-            v-for="(i, index) in widgetCount"
-            :key="index"
-            @h1-click="(n) => checkClick(n)"
-            @h6-click="(n) => checkClick(n)"
-            :bgColor="widgetBgColor"
-            text="Super coole widget bru">
+        v-for="(i, index) in widgetCount"
+        :key="index"
+        @h1-click="(n) => checkClick(n)"
+        @h6-click="(n) => checkClick(n)"
+        :bgColor="widgetBgColor"
+        text="Super coole widget bru">
         {{ i }} - {{ index }}
     </widget>
     <select v-model="widgetBgColor">

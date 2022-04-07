@@ -6,6 +6,6 @@
     "\\client\\src\\assets",
     "\\client\\src\\components"
   ],
-  "SelectedNode": "\\client\\package.json",
+  "SelectedNode": "\\client\\src\\components\\widget.vue",
   "PreviewInSolutionExplorer": false
 }

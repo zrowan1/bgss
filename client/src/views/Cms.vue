@@ -18,10 +18,17 @@
 
 <template>
 <router-view />
-    <h1> Hier komt de CMS </h1>
+    <h1 id="cmsTekst"> Hier komt de CMS </h1>
     <div>
     </div>
     <div>
         <button @click="goToBrand()"> Ga naar Brand Guide </button>
     </div>
 </template>
+
+<style>
+h1 {
+    background-color: bisque;
+    color: green;
+}
+</style>

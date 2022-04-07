@@ -26,7 +26,7 @@
     </div>
 </template>
 
-<style>
+<style scoped>
 h1 {
     background-color: bisque;
     color: green;

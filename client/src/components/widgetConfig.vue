@@ -15,7 +15,7 @@
             <textarea v-model="Paragraph" placeholder="add multiple lines"></textarea>
         </div>-->
         <!--<div>
-            <h1 :style="{'color': Color}">{{ Text }}</h1>
+            <h1 :style="{'color': Color}">{{ text }}</h1>
         </div>
     </div>-->
 
@@ -26,12 +26,14 @@
                 <div class="test">
                     <h3>Header</h3>
                     <input placeholder="edit me"
-                           :value="Text"
-                           @input="$emit('update:Text', $event.target.value)" />
+                           :value="text"
+                           @input="$emit('update:text', $event.target.value)" />
                 </div>
                 <div>
                     <h3>Header color</h3>
-                    <input placeholder="edit me" />
+                    <input placeholder="edit me" 
+                           :value="color"
+                           @input="$emit('update:color', $event.target.value)" />
                 </div>
                 <!--<div>
         <h3>Text</h3>
@@ -51,8 +53,8 @@
     import { defineProps } from 'vue'
     import {defineEmits} from 'vue'
 
-    const props = defineProps(['Color', 'Text', 'open'])
-    const emits = defineEmits(['update:Text'])
+    const props = defineProps(['color', 'text', 'open'])
+    const emits = defineEmits(['update:text'])
 
 
 </script>

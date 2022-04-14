@@ -1,7 +1,7 @@
 ﻿<template>
     <div class="widgetDiv">
-        <h1 :style="{'color': Color}">
-            {{text}} Hi
+        <h1 :style="{'color': color}">
+            {{text}}
         </h1>
     </div>
 
@@ -10,7 +10,7 @@
 <script setup>
     import { defineProps } from 'vue'
 
-    const props = defineProps(['Color', 'text'])
+    const props = defineProps(['color', 'text'])
 
 
 </script>

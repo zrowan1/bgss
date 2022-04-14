@@ -1,15 +1,16 @@
 <script setup>
 
     import widget from '@/components/widget.vue'
+    import widgetHeader from '@/components/widgetHeader.vue'
+    import widgetConfig from '@/components/widgetConfig.vue'
     import { ref } from 'vue'
     import router from '@/router'
-    import popup from '@/components/popup.vue'
- 
-    const widgetBgColor = 'blue'
-    const widgetText = ref(["1", "2", "3"]);
-    const isopen = ref(false)
+    import Quill from 'quill'
 
+    const widgetBgColor = ref('blue')
     let naam = 4
+
+    const textHeader = ref('')
 
     const widgets = ref([
         { id: 1, bgColor: 'Red', text: 'widget1' },
@@ -21,16 +22,17 @@
         router.push({ name: 'Cms' })
     }
     function addWidget() {
-        var color = document.getElementById("input1").value;
         const newWidget = {
             id: naam,
-            bgColor: color,
+            bgColor: widgetBgColor.value,
             text: 'widget' + naam,
         };
         widgets.value.push(newWidget)
         console.log(widgets.value.length);
         naam++;
     }
+
+   
 
     /*function removeWidget(plek) {
         widgetText.value.splice(plek, 1)
@@ -39,10 +41,40 @@
     function checkClick(i) {
         console.log(i)
     }
+
+
+
+
+    /*var quill = new Quill('#editor', {
+        modules: {
+            toolbar: '#toolbar'
+        }
+    });
+
+    var customButton = document.querySelector('#custom-button');
+    customButton.addEventListener('click', function () {
+        console.log('Clicked!');
+    });*/
+
+
+
+
+
+
+    
 </script>
 
 <template>
 
+    <!--<div id="toolbar">
+         Add buttons as you would before 
+        <button class="ql-bold"></button>
+        <button class="ql-italic"></button>-->
+
+         <!--But you can also add your own-->
+        <!--<button id="custom-button"></button>
+    </div>
+    <div id="editor"></div>-->
 
     <div>
         <button @click="goToCms()"> Ga Terug</button>
@@ -52,19 +84,12 @@
             :bgColor="widget.bgColor"
             :text="widget.text">
     </widget>
-   
-    <input id="input1" />
+    <!--<select v-model="widgetBgColor">
+        <option value="red">Red</option>
+        <option value="blue">Blue</option>
+    </select>-->
+    <input v-model="widgetBgColor" />
     <button @click="addWidget()">Add Widget</button>
-    <button @click="isopen = true"> Open popup</button>
-
-    <popup :open="isopen" @close="isopen = !isopen">
-        <h1>
-            dit is een popup
-        </h1>
-    </popup>
+    <widgetConfig v-model:Text="textHeader" />
+    <h1>{{textHeader}}</h1>
 </template>
-<style scoped>
-    h1 {
-        color: green;
-       }
-</style>

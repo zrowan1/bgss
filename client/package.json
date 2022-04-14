@@ -37,7 +37,8 @@
     },
     "rules": {
       "no-unused-vars": 0,
-      "vue/multi-word-component-names": 0
+      "vue/multi-word-component-names": 0,
+      "no-mixed-spaces-and-tabs": 0
     }
   },
   "browserslist": [

@@ -12,7 +12,7 @@
     const props = defineProps(['bgColor', 'text'])
 </script>
 
-<style>
+<style scoped>
     div {
         background-color: white;
         color: white;

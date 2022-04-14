@@ -3,9 +3,12 @@
     import widget from '@/components/widget.vue'
     import { ref } from 'vue'
     import router from '@/router'
-
+    import popup from '@/components/popup.vue'
+ 
     const widgetBgColor = 'blue'
     const widgetText = ref(["1", "2", "3"]);
+    const isopen = ref(false)
+
     let naam = 4
 
     const widgets = ref([
@@ -36,12 +39,11 @@
     function checkClick(i) {
         console.log(i)
     }
-
-
-    
 </script>
 
 <template>
+
+
     <div>
         <button @click="goToCms()"> Ga Terug</button>
     </div>
@@ -50,10 +52,19 @@
             :bgColor="widget.bgColor"
             :text="widget.text">
     </widget>
-    <!--<select v-model="widgetBgColor">
-        <option value="red">Red</option>
-        <option value="blue">Blue</option>
-    </select>-->
+   
     <input id="input1" />
     <button @click="addWidget()">Add Widget</button>
+    <button @click="isopen = true"> Open popup</button>
+
+    <popup :open="isopen" @close="isopen = !isopen">
+        <h1>
+            dit is een popup
+        </h1>
+    </popup>
 </template>
+<style scoped>
+    h1 {
+        color: green;
+       }
+</style>

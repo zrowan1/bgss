@@ -3,13 +3,13 @@
     import widget from '@/components/widget.vue'
     import widgetHeader from '@/components/widgetHeader.vue'
     import widgetConfig from '@/components/widgetConfig.vue'
+    import popup from '@/components/popup.vue'
     import { ref } from 'vue'
     import router from '@/router'
-    import Quill from 'quill'
 
     const widgetBgColor = ref('blue')
     let naam = 4
-
+    const isopen = ref(false)
     const textHeader = ref('')
 
     const widgets = ref([
@@ -67,12 +67,11 @@
 <template>
 
     <!--<div id="toolbar">
-         Add buttons as you would before 
+         Add buttons as you would before
         <button class="ql-bold"></button>
         <button class="ql-italic"></button>-->
-
-         <!--But you can also add your own-->
-        <!--<button id="custom-button"></button>
+    <!--But you can also add your own-->
+    <!--<button id="custom-button"></button>
     </div>
     <div id="editor"></div>-->
 
@@ -90,6 +89,13 @@
     </select>-->
     <input v-model="widgetBgColor" />
     <button @click="addWidget()">Add Widget</button>
-    <widgetConfig v-model:Text="textHeader" />
+    <!--<widgetConfig v-model:Text="textHeader" />-->
     <h1>{{textHeader}}</h1>
+    <button @click="isopen = true"> Open popup</button>
+
+    <widgetConfig v-model:Text="textHeader" :open="isopen" @close="isopen = !isopen">
+        <h1>
+            dit is een popup
+        </h1>
+    </widgetConfig>
 </template>

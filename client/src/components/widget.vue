@@ -1,7 +1,6 @@
 <template>
-    <div :style="{'background-color': bgColor}">
+    <div :style="{'background-color': color}">
         <h6>{{ text }}</h6>
-        <!--<button @click="$emit('remove-click', index)">Remove</button>-->
     </div>
 
 </template>
@@ -9,7 +8,7 @@
 <script setup>
     import { defineProps } from 'vue'
 
-    const props = defineProps(['bgColor', 'text'])
+    const props = defineProps(['color', 'text'])
 </script>
 
 <style scoped>

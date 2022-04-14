@@ -3,19 +3,19 @@
     import widget from '@/components/widget.vue'
     import widgetHeader from '@/components/widgetHeader.vue'
     import widgetConfig from '@/components/widgetConfig.vue'
-    import popup from '@/components/popup.vue'
-    import { ref } from 'vue'
+    import { createApp, ref } from 'vue'
     import router from '@/router'
 
-    const widgetBgColor = ref('blue')
+    //const widgetBgColor = ref('blue')
     let naam = 4
     const isopen = ref(false)
-    const textHeader = ref('')
+    const text = ref('')
+    const color = ref('')
 
     const widgets = ref([
-        { id: 1, bgColor: 'Red', text: 'widget1' },
-        { id: 2, bgColor: 'Blue', text: 'widget2' },
-        { id: 3, bgColor: 'Yellow', text: 'widget3' }
+        { id: 1, color: 'Red', text: 'widget1', type:0 },
+        { id: 2, color: 'Blue', text: 'widget2', type:0 },
+        { id: 3, color: 'Yellow', text: 'widget3', type:0 }
     ])
 
     function goToCms() {
@@ -24,76 +24,57 @@
     function addWidget() {
         const newWidget = {
             id: naam,
-            bgColor: widgetBgColor.value,
-            text: 'widget' + naam,
+            color: color.value,
+            text: text.value,
+            type: 0,
         };
         widgets.value.push(newWidget)
         console.log(widgets.value.length);
         naam++;
+
     }
 
-   
+    function addWidgetHeader() {
+        const newWidget = {
+            id: naam,
+            color: color.value,
+            text: text.value,
+            type: 1,
+        };
+        widgets.value.push(newWidget)
+        console.log(widgets.value.length);
+        naam++;
 
-    /*function removeWidget(plek) {
-        widgetText.value.splice(plek, 1)
-    }*/
-
-    function checkClick(i) {
-        console.log(i)
     }
 
 
 
-
-    /*var quill = new Quill('#editor', {
-        modules: {
-            toolbar: '#toolbar'
-        }
-    });
-
-    var customButton = document.querySelector('#custom-button');
-    customButton.addEventListener('click', function () {
-        console.log('Clicked!');
-    });*/
-
-
-
-
-
-
-    
 </script>
 
-<template>
+<template id="test">
 
-    <!--<div id="toolbar">
-         Add buttons as you would before
-        <button class="ql-bold"></button>
-        <button class="ql-italic"></button>-->
-    <!--But you can also add your own-->
-    <!--<button id="custom-button"></button>
-    </div>
-    <div id="editor"></div>-->
 
     <div>
         <button @click="goToCms()"> Ga Terug</button>
     </div>
-    <widget v-for="widget in widgets"
-            :key="widget.id"
-            :bgColor="widget.bgColor"
-            :text="widget.text">
-    </widget>
-    <!--<select v-model="widgetBgColor">
-        <option value="red">Red</option>
-        <option value="blue">Blue</option>
-    </select>-->
-    <input v-model="widgetBgColor" />
-    <button @click="addWidget()">Add Widget</button>
-    <!--<widgetConfig v-model:Text="textHeader" />-->
-    <h1>{{textHeader}}</h1>
+    <template v-for="widget in widgets"
+              :key="widget.id">
+        <widget v-if="widget.type === 0"
+                :color="widget.color"
+                :text="widget.text">
+        </widget>
+        <widgetHeader v-else-if="widget.type === 1"
+                      :color="widget.color"
+                      :text="widget.text">
+
+        </widgetHeader>
+    </template>
     <button @click="isopen = true"> Open popup</button>
 
-    <widgetConfig v-model:Text="textHeader" :open="isopen" @close="isopen = !isopen">
+    <button @click="addWidget()">Add Widget</button>
+    <button @click="addWidgetHeader()">Add Header Widget</button>
+
+    <widgetConfig v-model:text="text" v-model:color="color" :open="isopen" @close="isopen = !isopen">
         <h1>
             dit is een popup
         </h1>

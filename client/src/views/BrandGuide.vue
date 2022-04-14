@@ -3,7 +3,6 @@
     import widget from '@/components/widget.vue'
     import widgetHeader from '@/components/widgetHeader.vue'
     import widgetConfig from '@/components/widgetConfig.vue'
-    import popup from '@/components/popup.vue'
     import { ref } from 'vue'
     import router from '@/router'
 
@@ -32,8 +31,6 @@
         naam++;
     }
 
-   
-
     /*function removeWidget(plek) {
         widgetText.value.splice(plek, 1)
     }*/
@@ -41,9 +38,6 @@
     function checkClick(i) {
         console.log(i)
     }
-
-
-
 
     /*var quill = new Quill('#editor', {
         modules: {
@@ -56,13 +50,8 @@
         console.log('Clicked!');
     });*/
 
-
-
-
-
-
-    
 </script>
+
 
 <template>
 
@@ -91,11 +80,11 @@
     <button @click="addWidget()">Add Widget</button>
     <!--<widgetConfig v-model:Text="textHeader" />-->
     <h1>{{textHeader}}</h1>
-    <button @click="isopen = true"> Open popup</button>
+    <button @click="isopen = true"> Add widget</button>
 
     <widgetConfig v-model:Text="textHeader" :open="isopen" @close="isopen = !isopen">
         <h1>
-            dit is een popup
+            Vul hier je gegevens in
         </h1>
     </widgetConfig>
 </template>

@@ -24,13 +24,13 @@
             <div class="popup-content">
                 <slot />
                 <div class="test">
-                    <h3>Header</h3>
+                    <h3>Text</h3>
                     <input placeholder="edit me"
                            :value="text"
                            @input="$emit('update:text', $event.target.value)" />
                 </div>
                 <div>
-                    <h3>Header color</h3>
+                    <h3>Color</h3>
                     <input placeholder="edit me" 
                            :value="color"
                            @input="$emit('update:color', $event.target.value)" />

@@ -3,14 +3,17 @@
     import widget from '@/components/widget.vue'
     import widgetHeader from '@/components/widgetHeader.vue'
     import widgetConfig from '@/components/widgetConfig.vue'
-    import { createApp, ref } from 'vue'
+    import { createApp, ref, onMounted } from 'vue'
     import router from '@/router'
 
-    //const widgetBgColor = ref('blue')
+    const widgetBgColor = ref('blue')
     let naam = 4
-    const isopen = ref(false)
+    var isopen = ref()
     const text = ref('')
     const color = ref('')
+
+    
+
 
     const widgets = ref([
         { id: 1, color: 'Red', text: 'widget1', type:0 },
@@ -18,10 +21,43 @@
         { id: 3, color: 'Yellow', text: 'widget3', type:0 }
     ])
 
+
+
+    
+
+
+
+
     function goToCms() {
         router.push({ name: 'Cms' })
     }
-    function addWidget() {
+
+    function openConfig() {
+        isopen.value = true
+
+        
+
+        
+
+
+
+    }
+    function checkConfigInput(callback) {
+        if (isopen.value === true) {
+            setTimeout(checkConfigInput, 50, callback);
+            console.log("waiting")
+            return
+        }
+        //waitForInput_Cache = isopen.value;
+        console.log("done waiting")
+        callback();
+    }
+
+
+    
+
+    function addWidgetCallback() {
+        console.log("widget added");
         const newWidget = {
             id: naam,
             color: color.value,
@@ -31,10 +67,22 @@
         widgets.value.push(newWidget)
         console.log(widgets.value.length);
         naam++;
-
     }
 
-    function addWidgetHeader() {
+    function addWidgetPressed() {
+        openConfig();
+        checkConfigInput(addWidgetCallback)
+    }
+
+    function addWidgetHeaderPressed() {
+        openConfig();
+        checkConfigInput(addWidgetHeaderCallback)
+    }
+
+    
+
+    function addWidgetHeaderCallback() {
+        console.log("header added");
         const newWidget = {
             id: naam,
             color: color.value,
@@ -51,7 +99,7 @@
 
 </script>
 
-<template id="test">
+<template>
 
 
     <div>
@@ -69,10 +117,10 @@
 
         </widgetHeader>
     </template>
-    <button @click="isopen = true"> Open popup</button>
+    <button @click="openConfig()"> Open popup</button>
 
-    <button @click="addWidget()">Add Widget</button>
-    <button @click="addWidgetHeader()">Add Header Widget</button>
+    <button @click="addWidgetPressed()">Add Widget</button>
+    <button @click="addWidgetHeaderPressed()">Add Header Widget</button>
 
     <widgetConfig v-model:text="text" v-model:color="color" :open="isopen" @close="isopen = !isopen">
         <h1>

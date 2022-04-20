@@ -22,6 +22,17 @@
         background-color: white;
         color: white;
         margin: 4px;
-        width: 100.69px
+        width: 50%;
+        height: 100px;
+        border: solid;
+        border-color: black;
+    }
+
+
+
+    h6 {
+      font-size: large;
+      padding: 5px;
+      margin: 0;
     }
 </style>

@@ -1,5 +1,5 @@
 ﻿<template>
-    <div class="widgetDiv">
+    <div class="widgetDiv" :style="{'background': background}">
         <h1 :style="{'color': color}">
             {{text}}
         </h1>
@@ -9,17 +9,22 @@
 
 <script setup>
     import { defineProps } from 'vue'
-
-    const props = defineProps(['color', 'text'])
-
+    
+    const configProps = defineProps(['color', 'text', 'background'])
 
 </script>
 
 <style scoped>
     .widgetDiv {
         color: white;
-        background: green;
         margin: 4px;
-        width: 400px;
+        width: 50%;
+        height: 50px;
+        border: solid;
+        border-color: red;
+    }
+
+    h1 {
+      margin: 0;
     }
 </style>

@@ -11,22 +11,13 @@
     var isopen = ref()
     const text = ref('')
     const color = ref('')
-
-    
-
+    const background = ref('')
 
     const widgets = ref([
         { id: 1, color: 'Red', text: 'widget1', type:0 },
         { id: 2, color: 'Blue', text: 'widget2', type:0 },
         { id: 3, color: 'Yellow', text: 'widget3', type:0 }
     ])
-
-
-
-    
-
-
-
 
     function goToCms() {
         router.push({ name: 'Cms' })
@@ -87,12 +78,12 @@
             id: naam,
             color: color.value,
             text: text.value,
+            background: background.value,
             type: 1,
         };
         widgets.value.push(newWidget)
         console.log(widgets.value.length);
         naam++;
-
     }
 
 
@@ -101,30 +92,61 @@
 
 <template>
 
-
+  <div class="body">
     <div>
-        <button @click="goToCms()"> Ga Terug</button>
+      <button @click="goToCms()"> Ga Terug</button>
     </div>
     <template v-for="widget in widgets"
               :key="widget.id">
-        <widget v-if="widget.type === 0"
-                :color="widget.color"
-                :text="widget.text">
-        </widget>
-        <widgetHeader v-else-if="widget.type === 1"
-                      :color="widget.color"
-                      :text="widget.text">
+      <widget v-if="widget.type === 0"
+              :color="widget.color"
+              :text="widget.text">
+      </widget>
+      <widgetHeader v-else-if="widget.type === 1"
+                    :color="widget.color"
+                    :text="widget.text"
+                    :background="widget.background">
 
-        </widgetHeader>
+      </widgetHeader>
     </template>
-    <button @click="openConfig()"> Open popup</button>
+    <div class="widgetAdder">
+      <div class="widgetAdder-content">
+        <h2>Add Widget</h2>
+        <select style="width:100px;">
+          <option>Tekst</option>
+          <option>Header</option>
+          <option>Image</option>
+        </select>
+      
+        <div>
+          <button @click="isopen = true"> Open popup</button>
 
-    <button @click="addWidgetPressed()">Add Widget</button>
-    <button @click="addWidgetHeaderPressed()">Add Header Widget</button>
+          <button @click="addWidget()">Add Widget</button>
+          <button @click="addWidgetHeader()">Add Header Widget</button>
+        </div>
+      </div>
+    </div>
 
-    <widgetConfig v-model:text="text" v-model:color="color" :open="isopen" @close="isopen = !isopen">
-        <h1>
-            dit is een popup
-        </h1>
+    <widgetConfig v-model:text="text" v-model:color="color" v-model:background="background" :open="isopen" @close="isopen = !isopen">
     </widgetConfig>
-</template>
+  </div>
+</template> 
+
+<style scoped>
+  .body { 
+    width: 1140px;
+    margin: 10px auto;
+  }
+
+  .widgetAdder {
+    border: solid;
+    border-color: black;
+    width: 50%;
+    margin: 4px;
+  }
+
+  .widgetAdder-content {
+    padding: 5px;
+    text-align: center;
+  }
+</style>

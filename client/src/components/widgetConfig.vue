@@ -59,7 +59,7 @@
       <textarea v-model="Paragraph" placeholder="add multiple lines"></textarea>
   </div>-->
 
-            <button type="button" @click="$emit('close')"> close </button>
+            <button type="button" @click="$emit('close')"> Add Widget </button>
           </div>
         </div>
     </div>

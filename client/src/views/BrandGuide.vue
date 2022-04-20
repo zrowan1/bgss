@@ -44,7 +44,6 @@
         widgets.value.push(newWidget)
         console.log(widgets.value.length);
         naam++;
-
     }
 
 
@@ -53,21 +52,21 @@
 
 <template id="test">
 
-
+  <div class="body">
     <div>
-        <button @click="goToCms()"> Ga Terug</button>
+      <button @click="goToCms()"> Ga Terug</button>
     </div>
     <template v-for="widget in widgets"
               :key="widget.id">
-        <widget v-if="widget.type === 0"
-                :color="widget.color"
-                :text="widget.text">
-        </widget>
-        <widgetHeader v-else-if="widget.type === 1"
-                      :color="widget.color"
-                      :text="widget.text">
+      <widget v-if="widget.type === 0"
+              :color="widget.color"
+              :text="widget.text">
+      </widget>
+      <widgetHeader v-else-if="widget.type === 1"
+                    :color="widget.color"
+                    :text="widget.text">
 
-        </widgetHeader>
+      </widgetHeader>
     </template>
     <button @click="isopen = true"> Open popup</button>
 
@@ -75,8 +74,16 @@
     <button @click="addWidgetHeader()">Add Header Widget</button>
 
     <widgetConfig v-model:text="text" v-model:color="color" :open="isopen" @close="isopen = !isopen">
-        <h1>
-            dit is een popup
-        </h1>
+      <h1>
+        dit is een popup
+      </h1>
     </widgetConfig>
-</template>
+  </div>
+</template> 
+
+<style scoped>
+  .body { 
+    width: 1140px;
+    margin: 10px auto;
+  }
+</style>

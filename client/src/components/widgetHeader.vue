@@ -18,8 +18,15 @@
 <style scoped>
     .widgetDiv {
         color: white;
-        background: green;
+        background: black;
         margin: 4px;
-        width: 400px;
+        width: 50%;
+        height: 50px;
+        border: solid;
+        border-color: red;
+    }
+
+    h1 {
+      margin: 0;
     }
 </style>

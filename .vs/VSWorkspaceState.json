@@ -1,13 +1,12 @@
 {
   "ExpandedNodes": [
     "",
-    "\\-p",
     "\\client",
     "\\client\\src",
     "\\client\\src\\components",
     "\\client\\src\\router",
     "\\client\\src\\views"
   ],
-  "SelectedNode": "\\client\\src\\views\\BrandGuide.vue",
+  "SelectedNode": "\\client",
   "PreviewInSolutionExplorer": false
 }

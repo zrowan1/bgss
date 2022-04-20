@@ -8,10 +8,9 @@
 </template>
 
 <script setup>
-  import { defineProps } from 'vue'
-
+    import { defineProps } from 'vue'
+    
     const configProps = defineProps(['color', 'text', 'background'])
-
 
 </script>
 

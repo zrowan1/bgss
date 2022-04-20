@@ -23,6 +23,7 @@
         <div class="popup-inner">
           <div class="popup-content">
             <slot />
+
             <div class="divider">
               <h2 >Input</h2>
               <hr />
@@ -74,8 +75,6 @@
 
     const props = defineProps(['color', 'text', 'open', 'background'])
     const emits = defineEmits(['update:text', 'update:background'])
-
-
 </script>
 
 

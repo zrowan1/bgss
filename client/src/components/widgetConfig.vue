@@ -21,27 +21,45 @@
 
     <div class="popup" v-show="open">
         <div class="popup-inner">
-            <div class="popup-content">
-                <slot />
-                <div class="test">
-                    <h3>Header</h3>
-                    <input placeholder="edit me"
-                           :value="text"
-                           @input="$emit('update:text', $event.target.value)" />
-                </div>
-                <div>
-                    <h3>Header color</h3>
-                    <input placeholder="edit me" 
-                           :value="color"
-                           @input="$emit('update:color', $event.target.value)" />
-                </div>
-                <!--<div>
-        <h3>Text</h3>
-        <textarea v-model="Paragraph" placeholder="add multiple lines"></textarea>
-    </div>-->
-                    
-                <button type="button" @click="$emit('close')"> close </button>
+          <div class="popup-content">
+            <slot />
+            <div class="divider">
+              <h2 >Input</h2>
+              <hr />
             </div>
+
+            <div class="input">
+              <h3>Header</h3>
+              <input placeholder="edit me"
+                     :value="text"
+                     @input="$emit('update:text', $event.target.value)" />
+            </div>
+
+            <div class="divider-bot divider">
+              <h2>Style</h2>
+              <hr />
+            </div>
+
+            <div class="input">
+              <h3>Header-color</h3>
+              <input placeholder="edit me"
+                     :value="color"
+                     @input="$emit('update:color', $event.target.value)" />
+            </div>
+            <div class="input">
+              <h3>Background-color</h3>
+              <input placeholder="edit me"
+                     :value="background"
+                     @input="$emit('update:background', $event.target.value)" />
+            </div>
+
+            <!--<div>
+      <h3>Text</h3>
+      <textarea v-model="Paragraph" placeholder="add multiple lines"></textarea>
+  </div>-->
+
+            <button type="button" @click="$emit('close')"> close </button>
+          </div>
         </div>
     </div>
 
@@ -53,21 +71,35 @@
     import { defineProps } from 'vue'
     import {defineEmits} from 'vue'
 
-    const props = defineProps(['color', 'text', 'open'])
-    const emits = defineEmits(['update:text'])
+
+    const props = defineProps(['color', 'text', 'open', 'background'])
+    const emits = defineEmits(['update:text', 'update:background'])
 
 
 </script>
 
 
 <style scoped>
-    .test {
-        background: turquoise;
-        color: black;
-        width: 200px;
-        margin: 0;
-        padding: 2px;
+    h3 {
+      margin: 0;
     }
+    
+    h2 {
+      margin: 0;
+    }
+
+    .input {
+      margin: 10px 0;
+    }
+
+    .divider {
+      margin-bottom: 15px;
+    }
+
+    .divider-bot {
+      margin-top: 15px;
+    }
+
 
     .configDiv input {
         width: 90%;

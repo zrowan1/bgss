@@ -11,6 +11,7 @@
     const isopen = ref(false)
     const text = ref('')
     const color = ref('')
+    const background = ref('')
 
     const widgets = ref([
         { id: 1, color: 'Red', text: 'widget1', type:0 },
@@ -39,6 +40,7 @@
             id: naam,
             color: color.value,
             text: text.value,
+            background: background.value,
             type: 1,
         };
         widgets.value.push(newWidget)
@@ -64,19 +66,30 @@
       </widget>
       <widgetHeader v-else-if="widget.type === 1"
                     :color="widget.color"
-                    :text="widget.text">
+                    :text="widget.text"
+                    :background="widget.background">
 
       </widgetHeader>
     </template>
-    <button @click="isopen = true"> Open popup</button>
+    <div class="widgetAdder">
+      <div class="widgetAdder-content">
+        <h2>Add Widget</h2>
+        <select style="width:100px;">
+          <option>Tekst</option>
+          <option>Header</option>
+          <option>Image</option>
+        </select>
+      
+        <div>
+          <button @click="isopen = true"> Open popup</button>
 
-    <button @click="addWidget()">Add Widget</button>
-    <button @click="addWidgetHeader()">Add Header Widget</button>
+          <button @click="addWidget()">Add Widget</button>
+          <button @click="addWidgetHeader()">Add Header Widget</button>
+        </div>
+      </div>
+    </div>
 
-    <widgetConfig v-model:text="text" v-model:color="color" :open="isopen" @close="isopen = !isopen">
-      <h1>
-        dit is een popup
-      </h1>
+    <widgetConfig v-model:text="text" v-model:color="color" v-model:background="background" :open="isopen" @close="isopen = !isopen">
     </widgetConfig>
   </div>
 </template> 
@@ -85,5 +98,17 @@
   .body { 
     width: 1140px;
     margin: 10px auto;
+  }
+
+  .widgetAdder {
+    border: solid;
+    border-color: black;
+    width: 50%;
+    margin: 4px;
+  }
+
+  .widgetAdder-content {
+    padding: 5px;
+    text-align: center;
   }
 </style>

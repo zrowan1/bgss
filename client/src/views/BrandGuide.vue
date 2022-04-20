@@ -112,17 +112,16 @@
     <div class="widgetAdder">
       <div class="widgetAdder-content">
         <h2>Add Widget</h2>
-        <select style="width:100px;">
+        <!--<select style="width:100px;">
           <option>Tekst</option>
           <option>Header</option>
           <option>Image</option>
-        </select>
+        </select>-->
       
         <div>
-          <button @click="isopen = true"> Open popup</button>
 
-          <button @click="addWidget()">Add Widget</button>
-          <button @click="addWidgetHeader()">Add Header Widget</button>
+          <button @click="addWidgetPressed()">Add Widget</button>
+          <button @click="addWidgetHeaderPressed()">Add Header Widget</button>
         </div>
       </div>
     </div>

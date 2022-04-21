@@ -11,9 +11,14 @@ const routes = [
         component: Cms,
     },
     {
-        path: "/BG",
+        path: "/edit",
         name: "BrandGuide",
         component: BrandGuide,       
+    },
+    {
+        path: "/view",
+        name: "ViewBrandGuide",
+        component: BrandGuide,
     },
     {
         path: '/:catchAll(.*)*',

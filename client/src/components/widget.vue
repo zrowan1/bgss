@@ -10,7 +10,7 @@
     import { defineExpose } from 'vue'
 
     const props = defineProps(['color', 'text'])
-    //const configProps = ["bgColor", "textColor", "text", "size"];
+    
 
 
 
@@ -22,7 +22,6 @@
         background-color: white;
         color: white;
         margin: 4px;
-        width: 50%;
         height: 100px;
         border: solid;
         border-color: black;

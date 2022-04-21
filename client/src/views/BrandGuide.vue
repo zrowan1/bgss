@@ -3,14 +3,15 @@
     import widget from '@/components/widget.vue'
     import widgetHeader from '@/components/widgetHeader.vue'
     import widgetConfig from '@/components/widgetConfig.vue'
-    import { createApp, ref } from 'vue'
+    import { createApp, ref, onMounted } from 'vue'
     import router from '@/router'
 
-    //const widgetBgColor = ref('blue')
+    const widgetBgColor = ref('blue')
     let naam = 4
-    const isopen = ref(false)
+    var isopen = ref()
     const text = ref('')
     const color = ref('')
+    const background = ref('')
 
     const widgets = ref([
         { id: 1, color: 'Red', text: 'widget1', type:0 },
@@ -21,7 +22,33 @@
     function goToCms() {
         router.push({ name: 'Cms' })
     }
-    function addWidget() {
+
+    function openConfig() {
+        isopen.value = true
+
+        
+
+        
+
+
+
+    }
+    function checkConfigInput(callback) {
+        if (isopen.value === true) {
+            setTimeout(checkConfigInput, 50, callback);
+            console.log("waiting")
+            return
+        }
+        //waitForInput_Cache = isopen.value;
+        console.log("done waiting")
+        callback();
+    }
+
+
+    
+
+    function addWidgetCallback() {
+        console.log("widget added");
         const newWidget = {
             id: naam,
             color: color.value,
@@ -31,14 +58,27 @@
         widgets.value.push(newWidget)
         console.log(widgets.value.length);
         naam++;
-
     }
 
-    function addWidgetHeader() {
+    function addWidgetPressed() {
+        openConfig();
+        checkConfigInput(addWidgetCallback)
+    }
+
+    function addWidgetHeaderPressed() {
+        openConfig();
+        checkConfigInput(addWidgetHeaderCallback)
+    }
+
+    
+
+    function addWidgetHeaderCallback() {
+        console.log("header added");
         const newWidget = {
             id: naam,
             color: color.value,
             text: text.value,
+            background: background.value,
             type: 1,
         };
         widgets.value.push(newWidget)
@@ -50,7 +90,7 @@
 
 </script>
 
-<template id="test">
+<template>
 
   <div class="body">
     <div>
@@ -64,19 +104,29 @@
       </widget>
       <widgetHeader v-else-if="widget.type === 1"
                     :color="widget.color"
-                    :text="widget.text">
+                    :text="widget.text"
+                    :background="widget.background">
 
       </widgetHeader>
     </template>
-    <button @click="isopen = true"> Open popup</button>
+    <div class="widgetAdder">
+      <div class="widgetAdder-content">
+        <h2>Add Widget</h2>
+        <!--<select style="width:100px;">
+          <option>Tekst</option>
+          <option>Header</option>
+          <option>Image</option>
+        </select>-->
+      
+        <div>
 
-    <button @click="addWidget()">Add Widget</button>
-    <button @click="addWidgetHeader()">Add Header Widget</button>
+          <button @click="addWidgetPressed()">Add Widget</button>
+          <button @click="addWidgetHeaderPressed()">Add Header Widget</button>
+        </div>
+      </div>
+    </div>
 
-    <widgetConfig v-model:text="text" v-model:color="color" :open="isopen" @close="isopen = !isopen">
-      <h1>
-        dit is een popup
-      </h1>
+    <widgetConfig v-model:text="text" v-model:color="color" v-model:background="background" :open="isopen" @close="isopen = !isopen">
     </widgetConfig>
   </div>
 </template> 
@@ -85,5 +135,17 @@
   .body { 
     width: 1140px;
     margin: 10px auto;
+  }
+
+  .widgetAdder {
+    border: solid;
+    border-color: black;
+    width: 50%;
+    margin: 4px;
+  }
+
+  .widgetAdder-content {
+    padding: 5px;
+    text-align: center;
   }
 </style>

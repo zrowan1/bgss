@@ -7,8 +7,14 @@
 
 <script setup>
     import { defineProps } from 'vue'
+    import { defineExpose } from 'vue'
 
     const props = defineProps(['color', 'text'])
+    //const configProps = ["bgColor", "textColor", "text", "size"];
+
+
+
+
 </script>
 
 <style scoped>

@@ -4,9 +4,8 @@
     "\\client",
     "\\client\\src",
     "\\client\\src\\components",
-    "\\client\\src\\router",
     "\\client\\src\\views"
   ],
-  "SelectedNode": "\\client",
+  "SelectedNode": "\\client\\src\\components\\widgetHeader.vue",
   "PreviewInSolutionExplorer": false
 }

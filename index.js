@@ -5,7 +5,7 @@ const port = 3000
 var Connection = require('tedious').Connection
 
 var config = {
-    server: 'bgss.database.windows.net',
+    server: 'stuurmenbgss.database.windows.net',
     authentication: {
         type: 'default',
         options: {

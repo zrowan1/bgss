@@ -18,8 +18,7 @@
     .widgetDiv {
         color: white;
         margin: 4px;
-        width: 50%;
-        height: 50px;
+        height: 100px;
         border: solid;
         border-color: red;
     }

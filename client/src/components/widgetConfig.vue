@@ -21,46 +21,86 @@
 
     <div class="popup" v-show="open">
         <div class="popup-inner">
-          <div class="popup-content">
-            <slot />
+            <div class="popup-content">
+                <slot />
 
-            <div class="divider">
-              <h2 >Input</h2>
-              <hr />
+                <div class="divider">
+                    <h2>Input</h2>
+                    <hr />
+                </div>
+
+                <div class="input" v-if="propArray.includes('textContent')">
+                    <h3>Text Content</h3>
+                    <input :value="textContent"
+                           @input="$emit('update:textContent', $event.target.value)" />
+                </div>
+
+                <div class="input" v-if="propArray.includes('textColor')">
+                    <h3>Text Color</h3>
+                    <input :value="textColor"
+                           @input="$emit('update:textColor', $event.target.value)" />
+                </div>
+                <div class="input" v-if="propArray.includes('bgColor')">
+                    <h3>Background Color</h3>
+                    <input :value="bgColor"
+                           @input="$emit('update:bgColor', $event.target.value)" />
+                </div>
+
+                <div class="input" v-if="propArray.includes('textFont')">
+                    <h3>Font</h3>
+                    <input :value="textFont"
+                           @input="$emit('update:textFont', $event.target.value)" />
+                </div>
+
+                <div class="input" v-if="propArray.includes('textSize')">
+                    <h3>Font Size</h3>
+                    <input :value="textSize"
+                           @input="$emit('update:textSize', $event.target.value)" />
+                </div>
+
+                <div class="input" v-if="propArray.includes('marginTop')">
+                    <h3>Top Margin</h3>
+                    <input :value="marginTop"
+                           @input="$emit('update:marginTop', $event.target.value)" />
+                </div>
+
+                <div class="input" v-if="propArray.includes('marginBottom')">
+                    <h3>Bottom Margin</h3>
+                    <input :value="marginBottom"
+                           @input="$emit('update:marginBottom', $event.target.value)" />
+                </div>
+
+                <div class="input" v-if="propArray.includes('borderType')">
+                    <h3>Border Type</h3>
+                    <input :value="borderType"
+                           @input="$emit('update:borderType', $event.target.value)" />
+                </div>
+
+                <div class="input" v-if="propArray.includes('borderSize')">
+                    <h3>Border Size</h3>
+                    <input :value="borderSize"
+                           @input="$emit('update:borderSize', $event.target.value)" />
+                </div>
+
+                <div class="input" v-if="propArray.includes('borderColor')">
+                    <h3>Border Color</h3>
+                    <input :value="borderColor"
+                           @input="$emit('update:borderColor', $event.target.value)" />
+                </div>
+
+                <div class="input" v-if="propArray.includes('widgetHeight')">
+                    <h3>Widget Height</h3>
+                    <input :value="widgetHeight"
+                           @input="$emit('update:widgetHeight', $event.target.value)" />
+                </div>
+
+                <!--<div>
+        <h3>Text</h3>
+        <textarea v-model="Paragraph" placeholder="add multiple lines"></textarea>
+    </div>-->
+
+                <button type="button" @click="$emit('close')"> Add Widget </button>
             </div>
-
-            <div class="input">
-              <h3>Header</h3>
-              <input placeholder="edit me"
-                     :value="text"
-                     @input="$emit('update:text', $event.target.value)" />
-            </div>
-
-            <div class="divider-bot divider">
-              <h2>Style</h2>
-              <hr />
-            </div>
-
-            <div class="input">
-              <h3>Header-color</h3>
-              <input placeholder="edit me"
-                     :value="color"
-                     @input="$emit('update:color', $event.target.value)" />
-            </div>
-            <div class="input">
-              <h3>Background-color</h3>
-              <input placeholder="edit me"
-                     :value="background"
-                     @input="$emit('update:background', $event.target.value)" />
-            </div>
-
-            <!--<div>
-      <h3>Text</h3>
-      <textarea v-model="Paragraph" placeholder="add multiple lines"></textarea>
-  </div>-->
-
-            <button type="button" @click="$emit('close')"> Add Widget </button>
-          </div>
         </div>
     </div>
 
@@ -73,8 +113,9 @@
     import {defineEmits} from 'vue'
 
 
-    const props = defineProps(['color', 'text', 'open', 'background'])
-    const emits = defineEmits(['update:text', 'update:background'])
+    //const props = defineProps(['color', 'text', 'open', 'background'])
+    const props = defineProps(['textContent', 'textColor', 'bgColor', 'textFont', 'textSize', 'marginTop', 'marginBottom', 'borderType', 'borderSize', 'borderColor', 'widgetHeight', 'propArray', 'open'])
+    const emits = defineEmits(['update:textContent', 'update:textColor', 'update:bgColor', 'update:textFont', 'update:textSize', 'update:marginTop', 'update:marginBottom', 'update:borderType', 'update:borderSize', 'update:borderColor', 'update:widgetHeigt'])
 </script>
 
 

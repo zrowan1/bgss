@@ -6,12 +6,20 @@
     import { createApp, ref, onMounted } from 'vue'
     import router from '@/router'
 
-    const widgetBgColor = ref('blue')
     let naam = 4
     var isopen = ref()
-    const text = ref('')
-    const color = ref('')
-    const background = ref('')
+    const CtextContent = ref('')
+    const CtextColor = ref('')
+    const CbgColor = ref('')
+    const CtextFont = ref('')
+    const CtextSize = ref('')
+    const CmarginTop = ref('')
+    const CmarginBottom = ref('')
+    const CborderType = ref('')
+    const CborderSize = ref('')
+    const CborderColor = ref('')
+    const CwidgetHeight = ref('')
+    const CpropArray = ref(["bgColor", "textColor", "textContent", "textSize"])
 
     const widgets = ref([
         { id: 1, color: 'Red', text: 'widget1', type:0 },
@@ -23,9 +31,10 @@
         router.push({ name: 'Cms' })
     }
 
-    function openConfig() {
+    function openConfig(propArray) {
+        CpropArray.value = propArray
         isopen.value = true
-
+        
         
 
         
@@ -51,8 +60,8 @@
         console.log("widget added");
         const newWidget = {
             id: naam,
-            color: color.value,
-            text: text.value,
+            color: CbgColor.value,
+            text: CtextContent.value,
             type: 0,
         };
         widgets.value.push(newWidget)
@@ -61,12 +70,14 @@
     }
 
     function addWidgetPressed() {
-        openConfig();
+        const propList = ["bgColor", "textColor", "textContent", "textSize"];
+        openConfig(propList);
         checkConfigInput(addWidgetCallback)
     }
 
     function addWidgetHeaderPressed() {
-        openConfig();
+        const propList = ["bgColor", "textColor", "textContent"];
+        openConfig(propList);
         checkConfigInput(addWidgetHeaderCallback)
     }
 
@@ -76,9 +87,9 @@
         console.log("header added");
         const newWidget = {
             id: naam,
-            color: color.value,
-            text: text.value,
-            background: background.value,
+            color: CtextColor.value,
+            text: CtextContent.value,
+            background: CbgColor.value,
             type: 1,
         };
         widgets.value.push(newWidget)
@@ -126,8 +137,21 @@
       </div>
     </div>
 
-    <widgetConfig v-model:text="text" v-model:color="color" v-model:background="background" :open="isopen" @close="isopen = !isopen">
-    </widgetConfig>
+    <widgetConfig 
+                  v-model:textContent="CtextContent" 
+                  v-model:textColor="CtextColor" 
+                  v-model:bgColor="CbgColor"
+                  v-model:textFont="CtextFont"
+                  v-model:textSize="CtextSize"
+                  v-model:marginTop="CmarginTop"
+                  v-model:marginBottom="CmarginBottom"
+                  v-model:borderType="CborderType"
+                  v-model:borderSize="CborderSize"
+                  v-model:borderColor="CborderColor"
+                  v-model:widgetHeight="CwidgetHeight"
+                  :open="isopen"
+                  :propArray="CpropArray"
+                  @close="isopen = !isopen"/>
   </div>
 </template> 
 
@@ -140,7 +164,6 @@
   .widgetAdder {
     border: solid;
     border-color: black;
-    width: 50%;
     margin: 4px;
   }
 

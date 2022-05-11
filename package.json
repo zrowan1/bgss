@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "commonjs",
   "scripts": {
     "build-app": "git pull && npm run build-client && npm install && npm start",
     "build-client": "mkdir -p public && cd client && npm run build-app && cd ..",
@@ -14,6 +15,9 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.3",
+    "mssql": "^8.1.0",
+    "mysql": "^2.18.1",
+    "request": "^2.88.2",
     "tedious": "^14.4.0"
   }
 }

@@ -3,11 +3,13 @@
     import widget from '@/components/widget.vue'
     import widgetHeader from '@/components/widgetHeader.vue'
     import widgetConfig from '@/components/widgetConfig.vue'
+    import widgetColorPalette from '@/components/widgetConfig.vue'
     import { createApp, ref, onMounted } from 'vue'
     import router from '@/router'
 
     let naam = 4
     var isopen = ref()
+    var waitForInput = ref()
     const CtextContent = ref('')
     const CtextColor = ref('')
     const CbgColor = ref('')
@@ -34,22 +36,20 @@
     function openConfig(propArray) {
         CpropArray.value = propArray
         isopen.value = true
-        
-        
-
-        
-
-
-
+    }
+    function cancelWidgetAdd() {
+        waitForInput.value = false
+        isopen.value = false
     }
     function checkConfigInput(callback) {
-        if (isopen.value === true) {
+        if (waitForInput.value === true && isopen.value === true) {
             setTimeout(checkConfigInput, 50, callback);
-            console.log("waiting")
             return
         }
-        //waitForInput_Cache = isopen.value;
-        console.log("done waiting")
+        else if (waitForInput.value === false && isopen.value === false) {
+            return
+        }
+        isopen.value = false
         callback();
     }
 
@@ -72,19 +72,20 @@
     function addWidgetPressed() {
         const propList = ["bgColor", "textColor", "textContent", "textSize"];
         openConfig(propList);
+        waitForInput.value = true
         checkConfigInput(addWidgetCallback)
     }
 
     function addWidgetHeaderPressed() {
         const propList = ["bgColor", "textColor", "textContent"];
         openConfig(propList);
+        waitForInput.value = true
         checkConfigInput(addWidgetHeaderCallback)
     }
 
     
 
     function addWidgetHeaderCallback() {
-        console.log("header added");
         const newWidget = {
             id: naam,
             color: CtextColor.value,
@@ -103,56 +104,71 @@
 
 <template>
 
-  <div class="body">
-    <div>
-      <button @click="goToCms()"> Ga Terug</button>
-    </div>
-    <template v-for="widget in widgets"
-              :key="widget.id">
-      <widget v-if="widget.type === 0"
-              :color="widget.color"
-              :text="widget.text">
-      </widget>
-      <widgetHeader v-else-if="widget.type === 1"
-                    :color="widget.color"
-                    :text="widget.text"
-                    :background="widget.background">
 
-      </widgetHeader>
-    </template>
-    <div class="widgetAdder">
-      <div class="widgetAdder-content">
-        <h2>Add Widget</h2>
-        <!--<select style="width:100px;">
-          <option>Tekst</option>
-          <option>Header</option>
-          <option>Image</option>
-        </select>-->
-      
+    <div class="body">
         <div>
-
-          <button @click="addWidgetPressed()">Add Widget</button>
-          <button @click="addWidgetHeaderPressed()">Add Header Widget</button>
+            <button @click="goToCms()"> Ga Terug</button>
         </div>
-      </div>
-    </div>
+        <template v-for="widget in widgets"
+                  :key="widget.id">
+            <widget v-if="widget.type === 0"
+                    :color="widget.color"
+                    :text="widget.text">
+            </widget>
+            <widgetHeader v-else-if="widget.type === 1"
+                          :color="widget.color"
+                          :text="widget.text"
+                          :background="widget.background">
 
-    <widgetConfig 
-                  v-model:textContent="CtextContent" 
-                  v-model:textColor="CtextColor" 
-                  v-model:bgColor="CbgColor"
-                  v-model:textFont="CtextFont"
-                  v-model:textSize="CtextSize"
-                  v-model:marginTop="CmarginTop"
-                  v-model:marginBottom="CmarginBottom"
-                  v-model:borderType="CborderType"
-                  v-model:borderSize="CborderSize"
-                  v-model:borderColor="CborderColor"
-                  v-model:widgetHeight="CwidgetHeight"
-                  :open="isopen"
-                  :propArray="CpropArray"
-                  @close="isopen = !isopen"/>
-  </div>
+            </widgetHeader>
+        </template>
+        <div class="widgetAdder">
+            <div class="widgetAdder-content">
+                <h2>Add Widget</h2>
+                <!--<select style="width:100px;">
+                  <option>Tekst</option>
+                  <option>Header</option>
+                  <option>Image</option>
+                </select>-->
+
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle"
+                            type="button"
+                            id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                        Add Widget
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" @click="addWidgetPressed()">Text Widget</a></li>
+                        <li><a class="dropdown-item" @click="addWidgetHeaderPressed()">Header Widget</a></li>
+                        <li><a class="dropdown-item" @click="addWidgetHeaderPressed()">Color Palette Widget</a></li>
+                    </ul>
+                </div>
+
+
+
+            </div>
+        </div>
+
+        
+
+        <widgetConfig v-model:textContent="CtextContent"
+                      v-model:textColor="CtextColor"
+                      v-model:bgColor="CbgColor"
+                      v-model:textFont="CtextFont"
+                      v-model:textSize="CtextSize"
+                      v-model:marginTop="CmarginTop"
+                      v-model:marginBottom="CmarginBottom"
+                      v-model:borderType="CborderType"
+                      v-model:borderSize="CborderSize"
+                      v-model:borderColor="CborderColor"
+                      v-model:widgetHeight="CwidgetHeight"
+                      :open="isopen"
+                      :propArray="CpropArray"
+                      @cancel="cancelWidgetAdd"
+                      @addWidget="waitForInput = !waitForInput" />
+    </div>
 </template> 
 
 <style scoped>
@@ -170,5 +186,9 @@
   .widgetAdder-content {
     padding: 5px;
     text-align: center;
+  }
+
+  .dropdown-item {
+      cursor: pointer;
   }
 </style>

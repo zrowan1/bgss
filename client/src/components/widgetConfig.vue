@@ -1,24 +1,4 @@
 ﻿<template>
-    <!--<div>
-        <div>
-            <h3>Header</h3>
-            <input placeholder="edit me"
-                   :value="Text"
-                   @input="$emit('update:Text', $event.target.value)" />
-        </div>
-        <div>
-            <h3>Header color</h3>
-            <input placeholder="edit me" />
-        </div>-->
-        <!--<div>
-            <h3>Text</h3>
-            <textarea v-model="Paragraph" placeholder="add multiple lines"></textarea>
-        </div>-->
-        <!--<div>
-            <h1 :style="{'color': Color}">{{ text }}</h1>
-        </div>
-    </div>-->
-
     <div class="popup" v-show="open">
         <div class="popup-inner">
             <div class="popup-content">
@@ -94,11 +74,15 @@
                            @input="$emit('update:widgetHeight', $event.target.value)" />
                 </div>
 
-                <!--<div>
-        <h3>Text</h3>
-        <textarea v-model="Paragraph" placeholder="add multiple lines"></textarea>
-    </div>-->
-
+                <div class="input" v-if="propArray.includes('paletteColors')">
+                    <h3>Color Palette</h3>
+                    <div class="input-group mb-3">
+                        <button class="btn btn-outline-secondary" @click="amountOfColors++" type="button">+</button>
+                        <button class="btn btn-outline-secondary" @click="amountOfColors--" type="button">-</button>
+                        <h5>Amount of colors in palette: {{amountOfColors}}</h5>
+                    </div>
+                    <colorPaletteInputField v-for='index in parseInt(amountOfColors)' v-model:paletteColor="paletteColors[index]" @input="$emit('update:paletteColors', paletteColors)" :key='index' />
+                </div>
                 <button type="button" @click="$emit('addWidget')"> Add Widget </button>
                 <button type="button" @click="$emit('cancel')"> Cancel </button>
             </div>
@@ -111,12 +95,17 @@
 <script setup>
     import { ref } from 'vue'
     import { defineProps } from 'vue'
-    import {defineEmits} from 'vue'
+    import { defineEmits } from 'vue'
+    import colorPaletteInputField from '@/components/colorPalette/colorPaletteInputField.vue'
 
 
     //const props = defineProps(['color', 'text', 'open', 'background'])
-    const props = defineProps(['textContent', 'textColor', 'bgColor', 'textFont', 'textSize', 'marginTop', 'marginBottom', 'borderType', 'borderSize', 'borderColor', 'widgetHeight', 'propArray', 'open'])
-    const emits = defineEmits(['update:textContent', 'update:textColor', 'update:bgColor', 'update:textFont', 'update:textSize', 'update:marginTop', 'update:marginBottom', 'update:borderType', 'update:borderSize', 'update:borderColor', 'update:widgetHeigt'])
+    const props = defineProps(['textContent', 'textColor', 'bgColor', 'textFont', 'textSize', 'marginTop', 'marginBottom', 'borderType', 'borderSize', 'borderColor', 'widgetHeight', 'paletteColors', 'propArray', 'open'])
+    const emits = defineEmits(['update:textContent', 'update:textColor', 'update:bgColor', 'update:textFont', 'update:textSize', 'update:marginTop', 'update:marginBottom', 'update:borderType', 'update:borderSize', 'update:borderColor', 'update:widgetHeight', 'update:paletteColors'])
+    const amountOfColors = ref(1)
+    const paletteColors = ref([])
+    const paletteColorsArray = ref([])
+
 </script>
 
 

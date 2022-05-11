@@ -1,15 +1,17 @@
 <template>
-    <div :style="{'background-color': color}">
-        <h6>{{ text }}</h6>
+    <div>
+        <div v-for="color in colors" :key="color">
+        
+            <div :style="{'width': '50px', 'height': '50px', 'background-color': color  }"/>
+        </div>
     </div>
 
 </template>
 
 <script setup>
     import { defineProps } from 'vue'
-    import { defineExpose } from 'vue'
 
-    const props = defineProps(['color', 'text'])
+    const props = defineProps(['colors'])
     
 
 
@@ -22,7 +24,6 @@
         background-color: white;
         color: white;
         margin: 4px;
-        height: 100px;
         border: solid;
         border-color: black;
     }

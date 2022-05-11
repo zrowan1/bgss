@@ -3,7 +3,7 @@
     import widget from '@/components/widget.vue'
     import widgetHeader from '@/components/widgetHeader.vue'
     import widgetConfig from '@/components/widgetConfig.vue'
-    import widgetColorPalette from '@/components/widgetConfig.vue'
+    import widgetColorPalette from '@/components/widgetColorPalette.vue'
     import { createApp, ref, onMounted } from 'vue'
     import router from '@/router'
 
@@ -21,13 +21,14 @@
     const CborderSize = ref('')
     const CborderColor = ref('')
     const CwidgetHeight = ref('')
+    const CpaletteColors = ref([''])
     const CpropArray = ref(["bgColor", "textColor", "textContent", "textSize"])
 
-    const widgets = ref([
-        { id: 1, color: 'Red', text: 'widget1', type:0 },
+    const widgets = ref([])
+
+    /*{ id: 1, color: 'Red', text: 'widget1', type:0 },
         { id: 2, color: 'Blue', text: 'widget2', type:0 },
-        { id: 3, color: 'Yellow', text: 'widget3', type:0 }
-    ])
+        { id: 3, color: 'Yellow', text: 'widget3', type:0 }*/
 
     function goToCms() {
         router.push({ name: 'Cms' })
@@ -98,6 +99,29 @@
         naam++;
     }
 
+    function addWidgetColorPalettePressed() {
+        const propList = ["paletteColors"];
+        openConfig(propList);
+        waitForInput.value = true
+        checkConfigInput(addWidgetColorPaletteCallback)
+    }   
+
+
+
+    function addWidgetColorPaletteCallback() {
+        const colorArray = [...CpaletteColors.value]
+        const newWidget = {
+            id: naam,
+            colors: colorArray,
+            type: 2,
+        };
+        CpaletteColors.value = [];
+        widgets.value.push(newWidget)
+        console.log(widgets.value.length);
+        naam++;
+    }
+
+
 
 
 </script>
@@ -121,6 +145,10 @@
                           :background="widget.background">
 
             </widgetHeader>
+            <widgetColorPalette v-else-if="widget.type === 2"
+                                :colors="widget.colors">
+
+            </widgetColorPalette>
         </template>
         <div class="widgetAdder">
             <div class="widgetAdder-content">
@@ -142,7 +170,7 @@
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                         <li><a class="dropdown-item" @click="addWidgetPressed()">Text Widget</a></li>
                         <li><a class="dropdown-item" @click="addWidgetHeaderPressed()">Header Widget</a></li>
-                        <li><a class="dropdown-item" @click="addWidgetHeaderPressed()">Color Palette Widget</a></li>
+                        <li><a class="dropdown-item" @click="addWidgetColorPalettePressed()">Color Palette Widget</a></li>
                     </ul>
                 </div>
 
@@ -164,10 +192,11 @@
                       v-model:borderSize="CborderSize"
                       v-model:borderColor="CborderColor"
                       v-model:widgetHeight="CwidgetHeight"
+                      v-model:paletteColors ="CpaletteColors"
                       :open="isopen"
                       :propArray="CpropArray"
                       @cancel="cancelWidgetAdd"
-                      @addWidget="waitForInput = !waitForInput" />
+                      @addWidget="waitForInput = !waitForInput"/>
     </div>
 </template> 
 

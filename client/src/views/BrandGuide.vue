@@ -121,7 +121,7 @@
         CborderSize.value = oldWidget.borderSize
         CborderColor.value = oldWidget.borderColor
         CwidgetHeight.value = oldWidget.widgetHeight
-        CpaletteColors.value = [...oldWidget.colors]
+        //CpaletteColors.value = [...oldWidget.colors]
         
     }
 

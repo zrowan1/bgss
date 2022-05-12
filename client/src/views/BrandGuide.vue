@@ -77,8 +77,14 @@
     function editwidgetcallback() {
         const changeWidget = {
             id: naam,
-            color: CbgColor.value,
-            text: CtextContent.value,
+            textContent: CtextContent.value,
+            textColor: CtextColor.value,
+            bgColor: CbgColor.value,
+            textFont: CtextFont.value,
+            fontSize: CtextSize.value,
+            marginTop: CmarginTop.value,
+            marginBottom: CmarginBottom.value,
+            widgetHeight: CwidgetHeight.value,
             type: 0,
         };
         widgets.value.splice(editindex, 1)
@@ -105,7 +111,7 @@
     }
      function editwidget(index) {
         editindex = index
-        const propList = ["bgColor", "textColor", "textContent", "textSize"];
+         const propList = ["textContent", "textColor", "bgColor", "textFont", "fontSize", "marginTop", "marginBottom", "widgetHeight"];
          openConfig(propList)
          waitForInput.value = true
         checkConfigInput(editwidgetcallback)

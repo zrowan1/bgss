@@ -61,8 +61,14 @@
         console.log("widget added");
         const newWidget = {
             id: naam,
-            color: CbgColor.value,
-            text: CtextContent.value,
+            textContent: CtextContent.value,
+            textColor: CtextColor.value,
+            bgColor: CbgColor.value,
+            textFont: CtextFont.value,
+            fontSize: CtextSize.value,
+            marginTop: CmarginTop.value,
+            marginBottom: CmarginBottom.value,
+            widgetHeight: CwidgetHeight.value,
             type: 0,
         };
         widgets.value.push(newWidget)
@@ -71,7 +77,7 @@
     }
 
     function addWidgetPressed() {
-        const propList = ["bgColor", "textColor", "textContent", "textSize"];
+        const propList = ["textContent", "textColor", "bgColor", "textFont", "fontSize", "marginTop", "marginBottom", "widgetHeight"];
         openConfig(propList);
         waitForInput.value = true
         checkConfigInput(addWidgetCallback)
@@ -105,7 +111,7 @@
     }
 
     function addWidgetColorPalettePressed() {
-        const propList = ["paletteColors"];
+        const propList = ["paletteColors", "bgColor", "marginTop", "marginBottom", "widgetHeight"];
         openConfig(propList);
         waitForInput.value = true
         checkConfigInput(addWidgetColorPaletteCallback)
@@ -118,9 +124,13 @@
         const newWidget = {
             id: naam,
             colors: colorArray,
+            bgColor: CbgColor.value,
+            marginTop: CmarginTop.value,
+            marginBottom: CmarginBottom.value,
+            widgetHeight: CwidgetHeight.value,
             type: 2,
         };
-        CpaletteColors.value = [];
+        //CpaletteColors.value = [];
         widgets.value.push(newWidget)
         console.log(widgets.value.length);
         naam++;
@@ -141,8 +151,15 @@
         <template v-for="widget in widgets"
                   :key="widget.id">
             <widget v-if="widget.type === 0"
-                    :color="widget.color"
-                    :text="widget.text">
+                    :textContent="widget.textContent"
+                    :textColor="widget.textColor"
+                    :bgColor="widget.bgColor"
+                    :textFont="widget.textFont"
+                    :fontSize="widget.fontSize"
+                    :marginTop="widget.marginTop"
+                    :marginBottom="widget.marginBottom"
+                    :widgetHeight="widget.widgetHeight"
+                    >
             </widget>
             <widgetHeader v-else-if="widget.type === 1"
                           :textContent="widget.textContent"
@@ -157,7 +174,12 @@
 
             </widgetHeader>
             <widgetColorPalette v-else-if="widget.type === 2"
-                                :colors="widget.colors">
+                                :colors="widget.colors"
+                                :bgColor="widget.bgColor"
+                                :marginTop="widget.marginTop"
+                                :marginBottom="widget.marginBottom"
+                                :widgetHeight="widget.widgetHeight"
+                                >
 
             </widgetColorPalette>
         </template>

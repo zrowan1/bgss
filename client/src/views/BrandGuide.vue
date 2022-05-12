@@ -78,7 +78,7 @@
     }
 
     function addWidgetHeaderPressed() {
-        const propList = ["bgColor", "textColor", "textContent"];
+        const propList = ["textContent", "textColor", "bgColor", "textFont", "fontSize", "marginTop", "marginBottom", "widgetHeight"];
         openConfig(propList);
         waitForInput.value = true
         checkConfigInput(addWidgetHeaderCallback)
@@ -89,9 +89,14 @@
     function addWidgetHeaderCallback() {
         const newWidget = {
             id: naam,
-            color: CtextColor.value,
-            text: CtextContent.value,
-            background: CbgColor.value,
+            textContent: CtextContent.value,
+            textColor: CtextColor.value,
+            bgColor: CbgColor.value,
+            textFont: CtextFont.value,
+            fontSize: CtextSize.value,
+            marginTop: CmarginTop.value,
+            marginBottom: CmarginBottom.value,
+            widgetHeight: CwidgetHeight.value,
             type: 1,
         };
         widgets.value.push(newWidget)
@@ -140,9 +145,15 @@
                     :text="widget.text">
             </widget>
             <widgetHeader v-else-if="widget.type === 1"
-                          :color="widget.color"
-                          :text="widget.text"
-                          :background="widget.background">
+                          :textContent="widget.textContent"
+                          :textColor="widget.textColor"
+                          :bgColor="widget.bgColor"
+                          :textFont="widget.textFont"
+                          :fontSize="widget.fontSize"
+                          :marginTop="widget.marginTop"
+                          :marginBottom="widget.marginBottom"
+                          :widgetHeight="widget.widgetHeight"
+                          >
 
             </widgetHeader>
             <widgetColorPalette v-else-if="widget.type === 2"
@@ -201,10 +212,6 @@
 </template> 
 
 <style scoped>
-  .body { 
-    width: 1140px;
-    margin: 10px auto;
-  }
 
   .widgetAdder {
     border: solid;

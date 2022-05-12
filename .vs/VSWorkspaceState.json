@@ -4,8 +4,8 @@
     "\\client",
     "\\client\\src",
     "\\client\\src\\components",
+    "\\client\\src\\components\\colorPalette",
     "\\client\\src\\views"
   ],
-  "SelectedNode": "\\client\\package.json",
   "PreviewInSolutionExplorer": false
 }

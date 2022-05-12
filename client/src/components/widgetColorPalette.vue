@@ -1,8 +1,7 @@
 <template>
-    <div>
-        <div v-for="color in colors" :key="color">
-        
-            <div :style="{'width': '50px', 'height': '50px', 'background-color': color  }"/>
+    <div class="colorContainer">
+        <div  v-for="color in colors" :key="color" :style="{'background-color': color  }">
+
         </div>
     </div>
 
@@ -27,7 +26,17 @@
         border: solid;
         border-color: black;
     }
+    .colorContainer {
+        display: flex;
+        flex-wrap: nowrap;
+    }
 
+    .colorContainer > div {
+        width: 100px;
+        height:500px;
+        border: none;
+        margin: 0px;
+    }
 
 
     h6 {

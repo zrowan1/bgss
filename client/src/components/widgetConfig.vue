@@ -32,7 +32,7 @@
                            @input="$emit('update:textFont', $event.target.value)" />
                 </div>
 
-                <div class="input" v-if="propArray.includes('textSize')">
+                <div class="input" v-if="propArray.includes('fontSize')">
                     <h3>Font Size</h3>
                     <input :value="textSize"
                            @input="$emit('update:textSize', $event.target.value)" />
@@ -81,7 +81,7 @@
                         <button class="btn btn-outline-secondary" @click="amountOfColors--" type="button">-</button>
                         <h5>Amount of colors in palette: {{amountOfColors}}</h5>
                     </div>
-                    <colorPaletteInputField v-for='index in parseInt(amountOfColors)' v-model:paletteColor="paletteColors[index]" @input="$emit('update:paletteColors', paletteColors)" :key='index' />
+                    <colorPaletteInputField v-for='(n, i) in parseInt(amountOfColors)' v-model:paletteColor="paletteColors[i]" @input="$emit('update:paletteColors', paletteColors)" :key='i' />
                 </div>
                 <button type="button" @click="$emit('addWidget')"> Add Widget </button>
                 <button type="button" @click="$emit('cancel')"> Cancel </button>

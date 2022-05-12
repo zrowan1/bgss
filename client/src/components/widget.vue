@@ -3,6 +3,8 @@
         <div class="widget-inner">
             <p :style="{'background-color': bgColor, 'color': textColor, 'font-family': textFont, 'font-size': fontSize}">{{textContent}}</p>
         </div>
+        <button @click="$emit('remove-click', id)">Remove</button>
+        <button @click="$emit('editwidget')">edit</button>
     </div>
 
 </template>
@@ -10,7 +12,7 @@
 <script setup>
     import { defineProps } from 'vue'
 
-    const configProps = defineProps(['textContent', 'textColor', 'bgColor', 'textFont', 'fontSize', 'marginTop', 'marginBottom', 'borderType', 'borderSize', 'borderColor', 'widgetHeight'])
+    const configProps = defineProps(['textContent', 'textColor', 'bgColor', 'textFont', 'fontSize', 'marginTop', 'marginBottom', 'borderType', 'borderSize', 'borderColor', 'widgetHeight','id'])
 
 </script>
 

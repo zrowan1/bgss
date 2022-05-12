@@ -3,6 +3,8 @@
         <div class="widget-inner" :style="{'background-color': bgColor}">
             <div v-for="color in colors" :key="color" :style="{'background-color': color}"/>
         </div>
+        <button @click="$emit('remove-click', id)">Remove</button>
+        <button @click="$emit('editwidgetcolorPalette')">edit</button>
     </div>
     
 
@@ -11,7 +13,7 @@
 <script setup>
     import { defineProps } from 'vue'
 
-    const props = defineProps(['colors', 'bgColor', 'marginTop', 'marginBottom', 'widgetHeight'])
+    const props = defineProps(['colors', 'bgColor', 'marginTop', 'marginBottom', 'widgetHeight','id'])
     
 
 

@@ -5,7 +5,7 @@
         </div>
         <div v-if="hover" class="configButtons">
             <button @click="$emit('remove-click', id)">-</button>
-            <button @click="$emit('editwidgetHeader')">#</button>
+            <button @click="$emit('editwidget')">#</button>
         </div>
     </div>
 

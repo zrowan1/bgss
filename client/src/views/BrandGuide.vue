@@ -6,8 +6,9 @@
     import widgetColorPalette from '@/components/widgetColorPalette.vue'
     import { createApp, ref, onMounted } from 'vue'
     import router from '@/router'
-    let editindex = 0
+    let editindex = -1
     let naam = 4
+    let edit = false
     var isopen = ref()
     var waitForInput = ref()
     const CtextContent = ref('')
@@ -73,78 +74,10 @@
         callback();
     }
 
-    function editwidgetHeadercallback() {
-        const changeWidget = {
-            id: naam,
-            textContent: CtextContent.value,
-            textColor: CtextColor.value,
-            bgColor: CbgColor.value,
-            textFont: CtextFont.value,
-            fontSize: CtextSize.value,
-            marginTop: CmarginTop.value,
-            marginBottom: CmarginBottom.value,
-            widgetHeight: CwidgetHeight.value,
-            type: 1,
-        };
-        widgets.value.splice(editindex, 1)
-        widgets.value.splice(editindex, 0, changeWidget)
-
-    }
-    function editwidgetcallback() {
-        const changeWidget = {
-            id: naam,
-            textContent: CtextContent.value,
-            textColor: CtextColor.value,
-            bgColor: CbgColor.value,
-            textFont: CtextFont.value,
-            fontSize: CtextSize.value,
-            marginTop: CmarginTop.value,
-            marginBottom: CmarginBottom.value,
-            widgetHeight: CwidgetHeight.value,
-            type: 0,
-        };
-        widgets.value.splice(editindex, 1)
-        widgets.value.splice(editindex, 0, changeWidget)
-
-    }
-    function editwidgetcolorPalettecallback() {
-        const colorArray = [...CpaletteColors.value]
-        const changeWidget = {
-            id: naam,
-            colors: colorArray,
-            type: 2,
-        };
-        widgets.value.splice(editindex, 1)
-        widgets.value.splice(editindex, 0, changeWidget)
-
-    }
-     function editwidgetHeader(index) {
-        editindex = index
-         const propList = ["textContent", "textColor", "bgColor", "textFont", "fontSize", "marginTop", "marginBottom", "widgetHeight"];
-         openConfig(propList)
-         waitForInput.value = true
-        checkConfigInput(editwidgetHeadercallback)
-    }
-     function editwidget(index) {
-        editindex = index
-         const propList = ["textContent", "textColor", "bgColor", "textFont", "fontSize", "marginTop", "marginBottom", "widgetHeight"];
-         openConfig(propList)
-         waitForInput.value = true
-        checkConfigInput(editwidgetcallback)
-    }
-    function editwidgetcolorPalette(index) {
-        editindex = index
-        const propList = ["paletteColors"];
-        openConfig(propList)
-        waitForInput.value = true
-        checkConfigInput(editwidgetcallback)
-    }
-
-
-    
-
     function addWidgetCallback() {
-        console.log("widget added");
+        if (editindex >= 0) {
+            edit = true
+        }
         const newWidget = {
             id: naam,
             textContent: CtextContent.value,
@@ -157,19 +90,28 @@
             widgetHeight: CwidgetHeight.value,
             type: 0,
         };
-        widgets.value.push(newWidget)
-        console.log(widgets.value.length);
-        naam++;
+        if (edit === false) {
+            widgets.value.push(newWidget)
+            console.log(widgets.value.length);
+            naam++;
+        }
+        else {
+            widgets.value.splice(editindex, 1)
+            widgets.value.splice(editindex, 0, newWidget)
+            edit = false
+        }
     }
 
-    function addWidgetPressed() {
+    function addWidgetPressed(index) {
+        editindex = index
         const propList = ["textContent", "textColor", "bgColor", "textFont", "fontSize", "marginTop", "marginBottom", "widgetHeight"];
         openConfig(propList);
         waitForInput.value = true
         checkConfigInput(addWidgetCallback)
     }
 
-    function addWidgetHeaderPressed() {
+    function addWidgetHeaderPressed(index) {
+        editindex = index
         const propList = ["textContent", "textColor", "bgColor", "textFont", "fontSize", "marginTop", "marginBottom", "widgetHeight"];
         openConfig(propList);
         waitForInput.value = true
@@ -179,6 +121,9 @@
     
 
     function addWidgetHeaderCallback() {
+        if (editindex >= 0) {
+            edit = true
+        }
         const newWidget = {
             id: naam,
             textContent: CtextContent.value,
@@ -191,12 +136,20 @@
             widgetHeight: CwidgetHeight.value,
             type: 1,
         };
-        widgets.value.push(newWidget)
-        console.log(widgets.value.length);
-        naam++;
+        if (edit === false) {
+            widgets.value.push(newWidget)
+            console.log(widgets.value.length);
+            naam++;
+        }
+        else {
+            widgets.value.splice(editindex, 1)
+            widgets.value.splice(editindex, 0, newWidget)
+            edit = false
+        }
     }
 
-    function addWidgetColorPalettePressed() {
+    function addWidgetColorPalettePressed(index) {
+        editindex = index
         const propList = ["paletteColors", "bgColor", "marginTop", "marginBottom", "widgetHeight"];
         openConfig(propList);
         waitForInput.value = true
@@ -206,6 +159,9 @@
 
 
     function addWidgetColorPaletteCallback() {
+        if (editindex >= 0) {
+            edit = true
+        }
         const colorArray = [...CpaletteColors.value]
         const newWidget = {
             id: naam,
@@ -216,10 +172,16 @@
             widgetHeight: CwidgetHeight.value,
             type: 2,
         };
-        //CpaletteColors.value = [];
-        widgets.value.push(newWidget)
-        console.log(widgets.value.length);
-        naam++;
+        if (edit === false) {
+            widgets.value.push(newWidget)
+            console.log(widgets.value.length);
+            naam++;
+        }
+        else {
+            widgets.value.splice(editindex, 1)
+            widgets.value.splice(editindex, 0, newWidget)
+            edit = false
+        }
     }
 
 
@@ -248,7 +210,7 @@
                     :widgetHeight="widget.widgetHeight"
                     :id="index"
                     v-on:remove-click="(n) => removeWidget(n)"
-	                v-on:editwidget="(n) => editwidget(index)"
+	                v-on:editwidget="(n) => addWidgetPressed(index)"
                     >
             </widget>
             <widgetHeader v-else-if="widget.type === 1"
@@ -262,7 +224,7 @@
                           :widgetHeight="widget.widgetHeight"
                           :id="index"
                           v-on:remove-click="(n) => removeWidget(n)"
-	                      v-on:editwidgetHeader="(n) => editwidgetHeader(index)">
+	                      v-on:editwidgetHeader="(n) => addWidgetHeaderPressed(index)">
 
                           
 
@@ -275,7 +237,7 @@
                                 :widgetHeight="widget.widgetHeight"
                                 :id="index"
                                  v-on:remove-click="(n) => removeWidget(n)"
-	                             v-on:editwidgetcolorPalette="(n) => editwidgetcolorPalette(index)">
+	                             v-on:editwidgetcolorPalette="(n) => addWidgetColorPalettePressed(index)">
                                 >
 
             </widgetColorPalette>

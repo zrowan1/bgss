@@ -26,6 +26,17 @@
 
     const widgets = ref([])
 
+
+    const starbucksBg = [{ "id": 4, "textContent": "Starbucks", "textColor": "white", "bgColor": "#006241", "textFont": "Koulen", "fontSize": "70px", "marginTop": "30px", "marginBottom": "30px", "widgetHeight": "auto", "type": 1 },
+        { "id": 6, "textContent": "As we evolve to meet beautifully diverse customers all over the world, our brand has evolved too. Here we introduce a fresh new design system that maintains the core elements of our brand while keeping our customers’ experience central to creative expression.  To achieve this, we’re thoughtfully incorporating beautiful, expressive moments with calm confidence in ways that are optimistic, joyful and recognizably Starbucks. By consistently utilizing the Siren logo, an expanded palette of greens rooted in our iconic green apron and a constrained family of harmonious typefaces, we bring purpose and cohesion to every interaction customers have with our brand.  From farmers, roasters and baristas to writers, designers and illustrators, we believe in the power of both coffee and art to connect people and communities. Our new creative expression marries the artful core of our brand with helping our customers where they are, on their terms.", "textColor": "black", "bgColor": "#d4e9e2", "textFont": "Koulen", "fontSize": "30px", "marginTop": "30px", "marginBottom": "30px", "widgetHeight": "auto", "type": 0 },
+        { "id": 9, "textContent": "Colors", "textColor": "black", "bgColor": "#f2f0eb", "textFont": "Koulen", "fontSize": "60px", "marginTop": "60px", "marginBottom": "20px", "widgetHeight": "auto", "type": 1 },
+        { "id": 9, "textContent": "Our green is iconic. Visible for blocks. It’s our most identifiable asset, from the color of our aprons to our logo.", "textColor": "black", "bgColor": "#f2f0eb", "textFont": "Koulen", "fontSize": "35px", "marginTop": "10px", "marginBottom": "20px", "widgetHeight": "auto", "type": 0 },
+        { "id": 9, "textContent": "We’re leaning into a family of greens to leverage brand recognition. Fresh and inviting, this expanded palette nods subtly to our heritage and propels us into a global future. We always ensure a presence of brand greens, either within the composition or through the presence of a logo.", "textColor": "black", "bgColor": "#f2f0eb", "textFont": "Koulen", "fontSize": "25px", "marginTop": "2px", "marginBottom": "20px", "widgetHeight": "auto", "type": 0 },
+        { "id": 9, "colors": ["#1e3932", "#006241", "#00754a", "#d4e9e2", "#ffffff", "#f9f9f9", "#f2f0eb", "#000000"], "bgColor": "#f2f0eb", "marginTop": "15px", "marginBottom": "20px", "widgetHeight": "400px", "type": 2 }]
+
+
+
+
     /*{ id: 1, color: 'Red', text: 'widget1', type:0 },
         { id: 2, color: 'Blue', text: 'widget2', type:0 },
         { id: 3, color: 'Yellow', text: 'widget3', type:0 }*/
@@ -33,6 +44,11 @@
     function goToCms() {
         router.push({ name: 'Cms' })
     }
+
+    function loadStarbucksBg() {
+        widgets.value = [...starbucksBg]
+    }
+
     function removeWidget(plek) {
         widgets.value.splice(plek, 1)
     }
@@ -217,6 +233,7 @@
     <div class="body">
         <div>
             <button @click="goToCms()"> Ga Terug</button>
+            <button @click="loadStarbucksBg()">Starbucks</button>
         </div>
         <template v-for="(widget,index) in widgets"
                   :key="widget.id">
@@ -265,13 +282,6 @@
         </template>
         <div class="widgetAdder">
             <div class="widgetAdder-content">
-                <h2>Add Widget</h2>
-                <!--<select style="width:100px;">
-                  <option>Tekst</option>
-                  <option>Header</option>
-                  <option>Image</option>
-                </select>-->
-
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle"
                             type="button"
@@ -316,8 +326,6 @@
 <style scoped>
 
   .widgetAdder {
-    border: solid;
-    border-color: black;
     margin: 4px;
   }
 

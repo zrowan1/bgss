@@ -1,7 +1,8 @@
 <template>
     <div class="colorContainer">
-        <div  v-for="color in colors" :key="color" :style="{'background-color': color  }">
-
+        <div v-for="color in colors" :key="color" :style="{'background-color': color  }">
+            <button @click="$emit('remove-click', id)">Remove</button>
+            <button @click="$emit('editwidgetcolorPalette')">edit</button>
         </div>
     </div>
 
@@ -10,7 +11,7 @@
 <script setup>
     import { defineProps } from 'vue'
 
-    const props = defineProps(['colors'])
+    const props = defineProps(['colors','id'])
     
 
 

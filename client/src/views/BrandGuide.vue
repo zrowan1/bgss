@@ -6,7 +6,7 @@
     import widgetColorPalette from '@/components/widgetColorPalette.vue'
     import { createApp, ref, onMounted } from 'vue'
     import router from '@/router'
-
+    let editindex = 0
     let naam = 4
     var isopen = ref()
     var waitForInput = ref()
@@ -33,6 +33,9 @@
     function goToCms() {
         router.push({ name: 'Cms' })
     }
+    function removeWidget(plek) {
+        widgets.value.splice(plek, 1)
+    }
 
     function openConfig(propArray) {
         CpropArray.value = propArray
@@ -52,6 +55,67 @@
         }
         isopen.value = false
         callback();
+    }
+
+    function editwidgetHeadercallback() {
+        const changeWidget = {
+            id: naam,
+            textContent: CtextContent.value,
+            textColor: CtextColor.value,
+            bgColor: CbgColor.value,
+            textFont: CtextFont.value,
+            fontSize: CtextSize.value,
+            marginTop: CmarginTop.value,
+            marginBottom: CmarginBottom.value,
+            widgetHeight: CwidgetHeight.value,
+            type: 1,
+        };
+        widgets.value.splice(editindex, 1)
+        widgets.value.splice(editindex, 0, changeWidget)
+
+    }
+    function editwidgetcallback() {
+        const changeWidget = {
+            id: naam,
+            color: CbgColor.value,
+            text: CtextContent.value,
+            type: 0,
+        };
+        widgets.value.splice(editindex, 1)
+        widgets.value.splice(editindex, 0, changeWidget)
+
+    }
+    function editwidgetcolorPalettecallback() {
+        const colorArray = [...CpaletteColors.value]
+        const changeWidget = {
+            id: naam,
+            colors: colorArray,
+            type: 2,
+        };
+        widgets.value.splice(editindex, 1)
+        widgets.value.splice(editindex, 0, changeWidget)
+
+    }
+     function editwidgetHeader(index) {
+        editindex = index
+         const propList = ["textContent", "textColor", "bgColor", "textFont", "fontSize", "marginTop", "marginBottom", "widgetHeight"];
+         openConfig(propList)
+         waitForInput.value = true
+        checkConfigInput(editwidgetHeadercallback)
+    }
+     function editwidget(index) {
+        editindex = index
+        const propList = ["bgColor", "textColor", "textContent", "textSize"];
+         openConfig(propList)
+         waitForInput.value = true
+        checkConfigInput(editwidgetcallback)
+    }
+    function editwidgetcolorPalette(index) {
+        editindex = index
+        const propList = ["paletteColors"];
+        openConfig(propList)
+        waitForInput.value = true
+        checkConfigInput(editwidgetcallback)
     }
 
 
@@ -138,11 +202,14 @@
         <div>
             <button @click="goToCms()"> Ga Terug</button>
         </div>
-        <template v-for="widget in widgets"
+        <template v-for="(widget,index) in widgets"
                   :key="widget.id">
             <widget v-if="widget.type === 0"
                     :color="widget.color"
-                    :text="widget.text">
+                    :text="widget.text"
+                    :id="index"
+                    v-on:remove-click="(n) => removeWidget(n)"
+	                v-on:editwidget="(n) => editwidget(index)">
             </widget>
             <widgetHeader v-else-if="widget.type === 1"
                           :textContent="widget.textContent"
@@ -153,11 +220,18 @@
                           :marginTop="widget.marginTop"
                           :marginBottom="widget.marginBottom"
                           :widgetHeight="widget.widgetHeight"
-                          >
+                          :id="index"
+                          v-on:remove-click="(n) => removeWidget(n)"
+	                      v-on:editwidgetHeader="(n) => editwidgetHeader(index)">
+
+                          
 
             </widgetHeader>
             <widgetColorPalette v-else-if="widget.type === 2"
-                                :colors="widget.colors">
+                                :colors="widget.colors"
+                                 :id="index"
+                                 v-on:remove-click="(n) => removeWidget(n)"
+	                             v-on:editwidgetcolorPalette="(n) => editwidgetcolorPalette(index)">
 
             </widgetColorPalette>
         </template>

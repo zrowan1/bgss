@@ -1,6 +1,8 @@
 <template>
     <div :style="{'background-color': color}">
         <h6>{{ text }}</h6>
+        <button @click="$emit('remove-click', id)">Remove</button>
+        <button @click="$emit('editwidget')">edit</button>
     </div>
 
 </template>
@@ -9,7 +11,7 @@
     import { defineProps } from 'vue'
     import { defineExpose } from 'vue'
 
-    const props = defineProps(['color', 'text'])
+    const props = defineProps(['color', 'text','id'])
     
 
 

@@ -5,7 +5,9 @@
     "\\client\\src",
     "\\client\\src\\components",
     "\\client\\src\\components\\colorPalette",
+    "\\client\\src\\router",
     "\\client\\src\\views"
   ],
+  "SelectedNode": "\\client\\src\\components\\ImagePreview.vue",
   "PreviewInSolutionExplorer": false
 }

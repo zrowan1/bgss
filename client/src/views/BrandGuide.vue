@@ -1,14 +1,17 @@
 <script setup>
 
     import widget from '@/components/widget.vue'
+    import axios from 'axios'
     import widgetHeader from '@/components/widgetHeader.vue'
     import widgetConfig from '@/components/widgetConfig.vue'
     import widgetColorPalette from '@/components/widgetColorPalette.vue'
-    import { createApp, ref, onMounted } from 'vue'
+    import FilePreview from '@/components/ImagePreview';
+    import { createApp, ref, onMounted, defineProps} from 'vue'
     import router from '@/router'
     let editindex = -1
     let naam = 0
     let edit = false
+    const previewImage = ref()
     var isopen = ref()
     var waitForInput = ref()
     const CtextContent = ref('')
@@ -26,6 +29,8 @@
     const CpropArray = ref(["bgColor", "textColor", "textContent", "textSize"])
 
     const widgets = ref([])
+    const fileInput = ref()
+
 
 
     const starbucksBg = [{ "id": 1, "textContent": "Starbucks", "textColor": "white", "bgColor": "#006241", "textFont": "Koulen", "fontSize": "70px", "marginTop": "30px", "marginBottom": "30px", "widgetHeight": "auto", "type": 1 },
@@ -64,6 +69,7 @@
     function cancelWidgetAdd() {
         waitForInput.value = false
         isopen.value = false
+        edit = false
     }
     function checkConfigInput(callback) {
         if (waitForInput.value === true && isopen.value === true) {
@@ -238,9 +244,22 @@
         }
     }
 
-  
 
 
+    function pickFile(event) {
+        let file = event.target.files
+        console.log(file)
+        if (file && file[0]) {
+            let reader = new FileReader
+            reader.onload = e => {
+                previewImage.value = e.target.result
+                console.log(previewImage.value)
+            }
+            reader.readAsDataURL(file[0])
+        }
+    }
+
+    
 
 </script>
 
@@ -249,9 +268,16 @@
 
     <div class="body">
         <div>
-            <button @click="test()"> test</button>
             <button @click="goToCms()"> Ga Terug</button>
             <button @click="loadStarbucksBg()">Starbucks</button>
+
+            <input type="file"
+                   @change="pickFile">
+            <div class="imagePreviewWrapper"
+                 :style="{ 'background-image': `url(${previewImage})` }">
+            </div>
+
+
         </div>
         <template v-for="widget in widgets"
                   :key="widget.id">
@@ -266,8 +292,7 @@
                     :widgetHeight="widget.widgetHeight"
                     :id="widget.id"
                     v-on:remove-click="(n) => removeWidget(n)"
-	                v-on:editwidget="(n) => addWidgetPressed(widget.id)"
-                    >
+                    v-on:editwidget="(n) => addWidgetPressed(widget.id)">
             </widget>
             <widgetHeader v-else-if="widget.type === 1"
                           :textContent="widget.textContent"
@@ -280,9 +305,9 @@
                           :widgetHeight="widget.widgetHeight"
                           :id="widget.id"
                           v-on:remove-click="(n) => removeWidget(n)"
-	                      v-on:editwidgetHeader="(n) => addWidgetHeaderPressed(widget.id)">
+                          v-on:editwidgetHeader="(n) => addWidgetHeaderPressed(widget.id)">
 
-                          
+
 
             </widgetHeader>
             <widgetColorPalette v-else-if="widget.type === 2"
@@ -292,9 +317,9 @@
                                 :marginBottom="widget.marginBottom"
                                 :widgetHeight="widget.widgetHeight"
                                 :id="widget.id"
-                                 v-on:remove-click="(n) => removeWidget(n)"
-	                             v-on:editwidgetcolorPalette="(n) => addWidgetColorPalettePressed(widget.id)">
-                                >
+                                v-on:remove-click="(n) => removeWidget(n)"
+                                v-on:editwidgetcolorPalette="(n) => addWidgetColorPalettePressed(widget.id)">
+                >
 
             </widgetColorPalette>
         </template>
@@ -320,7 +345,7 @@
             </div>
         </div>
 
-        
+
 
         <widgetConfig v-model:textContent="CtextContent"
                       v-model:textColor="CtextColor"
@@ -333,11 +358,11 @@
                       v-model:borderSize="CborderSize"
                       v-model:borderColor="CborderColor"
                       v-model:widgetHeight="CwidgetHeight"
-                      v-model:paletteColors ="CpaletteColors"
+                      v-model:paletteColors="CpaletteColors"
                       :open="isopen"
                       :propArray="CpropArray"
                       @cancel="cancelWidgetAdd"
-                      @addWidget="waitForInput = !waitForInput"/>
+                      @addWidget="waitForInput = !waitForInput" />
     </div>
 </template> 
 
@@ -355,4 +380,13 @@
   .dropdown-item {
       cursor: pointer;
   }
+    .imagePreviewWrapper {
+        width: 250px;
+        height: 250px;
+        display: block;
+        cursor: pointer;
+        margin: 0 auto 30px;
+        background-size: cover;
+        background-position: center center;
+    }
 </style>

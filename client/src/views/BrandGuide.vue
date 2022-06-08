@@ -25,6 +25,7 @@
     const CborderSize = ref('')
     const CborderColor = ref('')
     const CwidgetHeight = ref('')
+    const CfileInput = ref(null)
     const CpaletteColors = ref([''])
     const CpropArray = ref(["bgColor", "textColor", "textContent", "textSize"])
 
@@ -236,6 +237,47 @@
     }
 
 
+
+
+    function addWidgetImagePressed(index) {
+        editindex = index
+        if (editindex >= 0) {
+            edit = true
+        }
+        const propList = ["fileInput"];
+        if (edit) {
+            fillConfig(index)
+        }
+        openConfig(propList);
+        waitForInput.value = true
+        checkConfigInput(addWidgetImageCallback)
+    }
+
+
+
+    function addWidgetImageCallback() {
+
+        const newWidget = {
+            id: naam,
+            fileInput: CfileInput,
+            type: 3,
+        };
+        if (!edit) {
+            widgets.value.push(newWidget)
+            console.log(widgets.value.length);
+            naam++;
+        }
+        else {
+
+            let i = widgets.value.map(item => item.id).indexOf(editindex)
+            widgets.value.splice(i, 1)
+            widgets.value.splice(i, 0, newWidget)
+            naam++
+            edit = false
+        }
+    }
+
+
     function getWidgetFromArray(id) {
         for (var i = 0; i < widgets.value.length; i++) {
             if (widgets.value[i].id === id) {
@@ -270,7 +312,6 @@
         <div>
             <button @click="goToCms()"> Ga Terug</button>
             <button @click="loadStarbucksBg()">Starbucks</button>
-
             <input type="file"
                    @change="pickFile">
             <div class="imagePreviewWrapper"
@@ -319,9 +360,10 @@
                                 :id="widget.id"
                                 v-on:remove-click="(n) => removeWidget(n)"
                                 v-on:editwidgetcolorPalette="(n) => addWidgetColorPalettePressed(widget.id)">
-                >
+                
 
             </widgetColorPalette>
+
         </template>
         <div class="widgetAdder">
             <div class="widgetAdder-content">
@@ -337,6 +379,7 @@
                         <li><a class="dropdown-item" @click="addWidgetPressed()">Text Widget</a></li>
                         <li><a class="dropdown-item" @click="addWidgetHeaderPressed()">Header Widget</a></li>
                         <li><a class="dropdown-item" @click="addWidgetColorPalettePressed()">Color Palette Widget</a></li>
+                        <li><a class="dropdown-item" @click="addWidgetImagePressed()">Image Widget</a></li>
                     </ul>
                 </div>
 
@@ -359,6 +402,7 @@
                       v-model:borderColor="CborderColor"
                       v-model:widgetHeight="CwidgetHeight"
                       v-model:paletteColors="CpaletteColors"
+                      v-model:fileInput ="CfileInput"
                       :open="isopen"
                       :propArray="CpropArray"
                       @cancel="cancelWidgetAdd"

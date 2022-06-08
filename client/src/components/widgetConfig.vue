@@ -74,6 +74,13 @@
                            @input="$emit('update:widgetHeight', $event.target.value)" />
                 </div>
 
+                <div class="input" v-if="propArray.includes('fileInput')">
+                    <h3>File Input</h3>
+                    <input
+                           @change="pickFile"
+                           type="file"/>
+                </div>
+
                 <div class="input" v-if="propArray.includes('paletteColors')">
                     <h3>Color Palette</h3>
                     <div class="input-group mb-3">
@@ -99,12 +106,30 @@
     import colorPaletteInputField from '@/components/colorPalette/colorPaletteInputField.vue'
 
 
-    //const props = defineProps(['color', 'text', 'open', 'background'])
-    const props = defineProps(['textContent', 'textColor', 'bgColor', 'textFont', 'textSize', 'marginTop', 'marginBottom', 'borderType', 'borderSize', 'borderColor', 'widgetHeight', 'paletteColors', 'propArray', 'open'])
-    const emits = defineEmits(['update:textContent', 'update:textColor', 'update:bgColor', 'update:textFont', 'update:textSize', 'update:marginTop', 'update:marginBottom', 'update:borderType', 'update:borderSize', 'update:borderColor', 'update:widgetHeight', 'update:paletteColors'])
+    const props = defineProps(['textContent', 'textColor', 'bgColor', 'textFont', 'textSize', 'marginTop', 'marginBottom', 'borderType', 'borderSize', 'borderColor', 'widgetHeight', 'paletteColors', 'fileInput', 'propArray', 'open'])
+    const emits = defineEmits(['update:textContent', 'update:textColor', 'update:bgColor', 'update:textFont', 'update:textSize', 'update:marginTop', 'update:marginBottom', 'update:borderType', 'update:borderSize', 'update:borderColor', 'update:widgetHeight', 'update:paletteColors', 'update:fileInput'])
     const amountOfColors = ref(1)
     const paletteColors = ref([])
     const paletteColorsArray = ref([])
+    const fileInput = ref()
+
+    function pickFile(event) {
+        console.log("method accesed")
+        let file = event.target.files
+        //console.log(file)
+        if (file && file[0]) {
+            let reader = new FileReader
+            reader.onload = e => {
+                fileInput.value = e.target.result
+                console.log(fileInput.value)
+            }
+            console.log(fileInput.value)
+
+            reader.readAsDataURL(file[0])
+
+        }
+        console.log(event)
+    }
 
 </script>
 

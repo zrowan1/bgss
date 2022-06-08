@@ -10,28 +10,13 @@
     </div>
 </template>
 
-<script>
-export default {
-  data() {
-      return {
-        previewImage: null
-      };
-    },
-  methods: {
-      pickFile () {
-          let input = this.$refs.fileInput
-          console.log(input.files)
-        let file = input.files
-        if (file && file[0]) {
-          let reader = new FileReader
-          reader.onload = e => {
-            this.previewImage = e.target.result
-          }
-          reader.readAsDataURL(file[0])
-        }
-      }
-  }
-}
+<script setup>
+    import { createApp, ref, onMounted, defineProps } from 'vue'
+
+    const fileInput = ref(null)
+    function pickFile() {
+        let input = fileInput.value.file
+    }
 </script>
 
 <style scoped>

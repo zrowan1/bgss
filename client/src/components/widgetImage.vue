@@ -1,12 +1,11 @@
 <template>
-    <div class="widget-outer" @mouseover="hover=true" @mouseleave="hover=false">
-        <div class="widget-inner imagePreviewWrapper" :style="{ 'background-image': `url(${previewImage})` }">
->
+    <div class="widget-outer" :style="{'background-color': bgColor, 'padding-top': marginTop, 'padding-bottom': marginBottom, 'height': widgetHeight}" @mouseover="hover=true" @mouseleave="hover=false">
+        <div class="widget-inner imagePreviewWrapper" :style="{ 'background-image': `url(${previewImage})`, 'height': widgetHeight, 'width': fontSize }">
+            
 
         </div>
         <div v-if="hover" class="configButtons">
             <button @click="$emit('remove-click', id)">-</button>
-            <button @click="$emit('editwidget')">#</button>
         </div>
     </div>
 
@@ -15,7 +14,7 @@
 <script setup>
     import { defineProps } from 'vue'
     import { ref } from 'vue'
-    const configProps = defineProps(['fileInput', 'id'])
+    const configProps = defineProps(['bgColor', 'marginTop', 'marginBottom','widgetHeight','previewImage', 'id', 'fontSize'])
     const hover = ref(false)
 
 
@@ -48,11 +47,8 @@
     }
 
     .imagePreviewWrapper {
-        width: 250px;
-        height: 250px;
         display: block;
-        cursor: pointer;
-        margin: 0 auto 30px;
+        
         background-size: cover;
         background-position: center center;
     }

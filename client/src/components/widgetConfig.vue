@@ -106,29 +106,27 @@
     import colorPaletteInputField from '@/components/colorPalette/colorPaletteInputField.vue'
 
 
-    const props = defineProps(['textContent', 'textColor', 'bgColor', 'textFont', 'textSize', 'marginTop', 'marginBottom', 'borderType', 'borderSize', 'borderColor', 'widgetHeight', 'paletteColors', 'fileInput', 'propArray', 'open'])
-    const emits = defineEmits(['update:textContent', 'update:textColor', 'update:bgColor', 'update:textFont', 'update:textSize', 'update:marginTop', 'update:marginBottom', 'update:borderType', 'update:borderSize', 'update:borderColor', 'update:widgetHeight', 'update:paletteColors', 'update:fileInput'])
+    const props = defineProps(['textContent', 'textColor', 'bgColor', 'textFont', 'textSize', 'marginTop', 'marginBottom', 'borderType', 'borderSize', 'borderColor', 'widgetHeight', 'paletteColors', 'fileInput','previewImage', 'propArray', 'open'])
+    const emits = defineEmits(['update:textContent', 'update:textColor', 'update:bgColor', 'update:textFont', 'update:textSize', 'update:marginTop', 'update:marginBottom', 'update:borderType', 'update:borderSize', 'update:borderColor', 'update:widgetHeight', 'update:paletteColors', 'update:fileInput', 'saveImage'])
     const amountOfColors = ref(1)
     const paletteColors = ref([])
     const paletteColorsArray = ref([])
     const fileInput = ref()
 
+    const previewImage = ref()
+
+
     function pickFile(event) {
-        console.log("method accesed")
         let file = event.target.files
-        //console.log(file)
+        console.log(file)
         if (file && file[0]) {
             let reader = new FileReader
             reader.onload = e => {
-                fileInput.value = e.target.result
-                console.log(fileInput.value)
+                previewImage.value = e.target.result
+                emits('saveImage', previewImage.value)
             }
-            console.log(fileInput.value)
-
             reader.readAsDataURL(file[0])
-
         }
-        console.log(event)
     }
 
 </script>
